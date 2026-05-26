@@ -1,0 +1,46 @@
+{
+  "task_id": "f004-f006-quiz",
+  "feature_ids": ["F004", "F005", "F006"],
+  "title": "クイズエンジン・パラメータ更新・ゲームオーバー判定",
+  "completed_at": "2026-05-27T00:00:00Z",
+  "used_model": "claude-sonnet-4-6",
+  "status": "COMPLETE",
+  "files_created": [
+    "plans/2026-05-27-f004-f006-quiz-engine.md",
+    "agents/quiz/logic/quiz.ts",
+    "agents/quiz/logic/answer.ts",
+    "agents/quiz/api/quiz.ts",
+    "agents/quiz/api/answer.ts",
+    "agents/quiz/ui/ParameterGauges.tsx",
+    "agents/quiz/ui/QuizScreen.tsx",
+    "agents/quiz/ui/ResultScreen.tsx",
+    "agents/quiz/ui/GameOverScreen.tsx"
+  ],
+  "files_updated": [
+    "agents/game-level/logic/progress.ts (getProgressForLevel + CurrentParams 追加)",
+    "app/api/levels/[id]/quiz/route.ts",
+    "app/api/quiz/answer/route.ts",
+    "app/(game)/game/[level]/quiz/page.tsx (Server Component → QuizScreen)",
+    "app/(game)/game/[level]/result/page.tsx (Server Component → ResultScreen)",
+    "app/(game)/game/game-over/page.tsx (GameOverScreen 組み込み)"
+  ],
+  "architecture_decisions": [
+    ".clauderules 準拠: quiz エージェントは user_progress へ直接 Prisma クエリしない。getProgressForLevel / saveOrUpdateProgress を game-level/logic から import",
+    "GET /api/levels/[id]/quiz の choices に isCorrect / delta を含めない（クライアント改ざん防止）",
+    "パラメータ計算・ゲームオーバー判定・全問回答チェックは全てサーバーサイド (processAnswer)",
+    "GameOverScreen は useSearchParams で ?level= を読む → Suspense ラップ必須",
+    "ResultPage: progress.status !== cleared の場合は quiz ページへリダイレクト（直接アクセス防止）"
+  ],
+  "game_parameters": {
+    "compliance": { "initial": 100, "range": [0, 100], "gameOver": "value === 0" },
+    "gmv": { "initial": 0, "range": [0, "infinity"], "gameOver": "N/A" },
+    "ux": { "initial": 100, "range": [0, 100], "gameOver": "N/A (threshold TBD)" },
+    "clearCondition": "全問回答 + compliance > 0"
+  },
+  "next_tasks": [
+    "F014: ゲストプレビュー (agents/game-level/)",
+    "F015: 学習履歴・スコア確認 (agents/game-level/)",
+    "DB マイグレーション・シードデータ作成",
+    "F009-F013: コンテンツ解禁待ち"
+  ]
+}

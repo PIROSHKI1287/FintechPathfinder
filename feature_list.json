@@ -63,7 +63,7 @@
       "title": "クイズ・パラメータ・ゲームオーバー",
       "description": "選択肢クイズ回答エンジン、パラメータリアルタイム更新（コンプライアンス/GMV/UX）、ゲームオーバー判定",
       "priority": "Must",
-      "status": "READY",
+      "status": "COMPLETE",
       "phase": "1",
       "agent": "quiz",
       "feature_requirement_ids": ["F004", "F005", "F006"],

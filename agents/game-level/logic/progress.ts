@@ -30,6 +30,24 @@ export async function getUserProgress(userId: string): Promise<ProgressEntry[]> 
   }))
 }
 
+export interface CurrentParams {
+  status: string
+  complianceScore: number
+  gmvScore: number
+  uxScore: number
+}
+
+export async function getProgressForLevel(
+  userId: string,
+  levelId: string,
+): Promise<CurrentParams | null> {
+  const row = await prisma.userProgress.findUnique({
+    where: { userId_levelId: { userId, levelId } },
+    select: { status: true, complianceScore: true, gmvScore: true, uxScore: true },
+  })
+  return row
+}
+
 export interface SaveProgressInput {
   levelId: string
   status: 'in_progress' | 'cleared' | 'game_over'
