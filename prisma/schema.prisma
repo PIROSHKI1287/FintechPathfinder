@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  role         String    @default("user") // "user" | "admin"
+  createdAt    DateTime  @default(now())
+  lastLoginAt  DateTime?
+
+  consents DisclaimerConsent[]
+  progress UserProgress[]
+  attempts QuizAttempt[]
+
+  @@map("users")
+}
+
+model Level {
+  id          String  @id @default(cuid())
+  levelNumber Int     @unique
+  title       String
+  description String
+  isPublished Boolean @default(false)
+  sortOrder   Int     @default(0)
+
+  storyPages    StoryPage[]
+  quizQuestions QuizQuestion[]
+  userProgress  UserProgress[]
+  dictTerms     DictionaryTerm[]
+
+  @@map("levels")
+}
+
+model StoryPage {
+  id          String  @id @default(cuid())
+  levelId     String
+  pageNumber  Int
+  contentJson Json
+  diagramUrl  String?
+
+  level Level @relation(fields: [levelId], references: [id], onDelete: Cascade)
+
+  @@unique([levelId, pageNumber])
+  @@map("story_pages")
+}
+
+model QuizQuestion {
+  id           String @id @default(cuid())
+  levelId      String
+  questionText String
+  type         String // "single_choice" | "simulation"
+  sortOrder    Int    @default(0)
+
+  level    Level        @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  choices  QuizChoice[]
+  attempts QuizAttempt[]
+
+  @@map("quiz_questions")
+}
+
+model QuizChoice {
+  id              String  @id @default(cuid())
+  questionId      String
+  choiceText      String
+  isCorrect       Boolean @default(false)
+  complianceDelta Int     @default(0)
+  gmvDelta        Int     @default(0)
+  uxDelta         Int     @default(0)
+  feedbackText    String?
+
+  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_choices")
+}
+
+model UserProgress {
+  id              String    @id @default(cuid())
+  userId          String
+  levelId         String
+  status          String    // "in_progress" | "cleared" | "game_over"
+  complianceScore Int       @default(100)
+  gmvScore        Int       @default(0)
+  uxScore         Int       @default(100)
+  clearedAt       DateTime?
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level Level @relation(fields: [levelId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, levelId])
+  @@map("user_progress")
+}
+
+model QuizAttempt {
+  id             String   @id @default(cuid())
+  userId         String
+  questionId     String
+  chosenChoiceId String?
+  answeredAt     DateTime @default(now())
+  complianceAfter Int
+  gmvAfter        Int
+  uxAfter         Int
+
+  user     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_attempts")
+}
+
+model DictionaryTerm {
+  id             String   @id @default(cuid())
+  term           String
+  reading        String?
+  definition     String
+  relatedLevelId String?
+  createdAt      DateTime @default(now())
+
+  relatedLevel Level? @relation(fields: [relatedLevelId], references: [id])
+
+  @@map("dictionary_terms")
+}
+
+model DisclaimerConsent {
+  id          String   @id @default(cuid())
+  userId      String
+  consentedAt DateTime @default(now())
+  ipAddress   String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("disclaimer_consents")
+}

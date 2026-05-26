@@ -1,0 +1,32 @@
+# agents/admin/.clauderules
+# この専門家は管理者機能を担当する（Phase 1.5~）。
+
+## 責任範囲
+- 座学コンテンツ・クイズのCRUD管理（S013）
+- 管理者専用APIの提供
+- コンテンツの isPublished フラグ管理（公開・非公開切り替え）
+
+## この専門家が core/ に依存できるもの
+- core/db/    : levels・story_pages・quiz_questions・quiz_choices・dictionary_terms テーブル（管理者権限での読み書き）
+- core/auth/  : 管理者セッション検証（role=admin）
+- core/utils/ : Zodスキーマ
+
+## 担当 API エンドポイント
+- CRUD /api/admin/levels
+- CRUD /api/admin/quiz-questions
+- CRUD /api/admin/dictionary
+
+## 担当画面
+- S013: 管理者コンテンツ管理 (/admin/content)
+
+## 技術的制約（本能ルール）
+- 全エンドポイントで role=admin をサーバーサイドで検証必須（省略不可）
+- IPアドレス制限または二要素認証の実装を推奨（詳細設計で決定）
+- DBマイグレーションはAPIから実行しない（prisma migrate を使用）
+- コンテンツの isPublished=true への変更は人間の操作でのみ行う（AIの自動公開禁止）
+
+## 禁止事項
+- 管理者認証チェックを省略しない（全エンドポイント必須）
+- 生のSQLを直接実行しない（Prismaを使用）
+- user テーブルの passwordHash を読み書きしない
+- Phase 1 では実装しない（Phase 1.5 以降）

@@ -1,0 +1,179 @@
+{
+  "version": "1.0.0",
+  "project": "bpsp-game",
+  "updated": "2026-05-26",
+  "tasks": [
+    {
+      "id": "SETUP-001",
+      "title": "ディレクトリ構造セットアップ",
+      "description": "Next.jsプロジェクト初期化、設定ファイル作成、エージェントディレクトリ構築",
+      "priority": "Must",
+      "status": "COMPLETE",
+      "phase": "0",
+      "agent": "Orchestrator",
+      "task_id": "setup-bpsp01",
+      "feature_requirement_ids": []
+    },
+    {
+      "id": "F001",
+      "title": "ユーザー認証",
+      "description": "メール・パスワードによる新規登録・ログイン・ログアウト",
+      "priority": "Must",
+      "status": "READY",
+      "phase": "1",
+      "agent": "auth",
+      "feature_requirement_ids": ["F001"],
+      "screens": ["S003", "S004"]
+    },
+    {
+      "id": "F008-consent",
+      "title": "免責事項表示・同意記録",
+      "description": "毎回利用時に免責事項モーダルを表示。同意取得後にゲーム利用可能。未同意ユーザーはゲーム本編URLにアクセス不可",
+      "priority": "Must",
+      "status": "READY",
+      "phase": "1",
+      "agent": "auth",
+      "feature_requirement_ids": ["F008"],
+      "screens": ["S002"]
+    },
+    {
+      "id": "F002",
+      "title": "学習進行度管理",
+      "description": "レベルごとの受講状態をDBに保存・復元。前レベルクリアを条件として次レベルを解放する",
+      "priority": "Must",
+      "status": "READY",
+      "phase": "1",
+      "agent": "game-level",
+      "feature_requirement_ids": ["F002"],
+      "screens": ["S005"]
+    },
+    {
+      "id": "F003",
+      "title": "座学ビューア",
+      "description": "ユーザーがテキストと図解をページ送りで閲覧できる",
+      "priority": "Must",
+      "status": "READY",
+      "phase": "1",
+      "agent": "game-level",
+      "feature_requirement_ids": ["F003"],
+      "screens": ["S007"]
+    },
+    {
+      "id": "F004-F006",
+      "title": "クイズ・パラメータ・ゲームオーバー",
+      "description": "選択肢クイズ回答エンジン、パラメータリアルタイム更新（コンプライアンス/GMV/UX）、ゲームオーバー判定",
+      "priority": "Must",
+      "status": "READY",
+      "phase": "1",
+      "agent": "quiz",
+      "feature_requirement_ids": ["F004", "F005", "F006"],
+      "screens": ["S008", "S009", "S010"]
+    },
+    {
+      "id": "F007",
+      "title": "ミニ辞書（用語集）",
+      "description": "座学で登場する専門用語（MDR・消込・資金移動業等）をいつでも参照できる",
+      "priority": "Must",
+      "status": "READY",
+      "phase": "1",
+      "agent": "dictionary",
+      "feature_requirement_ids": ["F007"],
+      "screens": ["S011"]
+    },
+    {
+      "id": "F009",
+      "title": "Level 1: 基礎概念コンテンツ",
+      "description": "BPSPの4者間の仕組み・「金の流れ」学習・クイズ。社内識者レビュー必須",
+      "priority": "Must",
+      "status": "BLOCKED",
+      "phase": "1",
+      "agent": "game-level",
+      "blocked_reason": "コンテンツは社内識者・専門家レビュー後に公開。開発チームはコンテンツ正確性に責任を負わない",
+      "feature_requirement_ids": ["F009"],
+      "screens": ["S006", "S007", "S008", "S009"]
+    },
+    {
+      "id": "F010",
+      "title": "Level 2: 法規制コンテンツ",
+      "description": "資金決済法・割販法・AML/KYC学習・審査シミュレーション。社内識者レビュー必須",
+      "priority": "Must",
+      "status": "BLOCKED",
+      "phase": "1",
+      "agent": "game-level",
+      "blocked_reason": "コンテンツは社内識者・専門家レビュー後に公開",
+      "feature_requirement_ids": ["F010"]
+    },
+    {
+      "id": "F011",
+      "title": "Level 3: 実務・システムコンテンツ",
+      "description": "システム連携・消込・CF管理学習・トラブルシューティング。社内識者レビュー必須",
+      "priority": "Must",
+      "status": "BLOCKED",
+      "phase": "1",
+      "agent": "game-level",
+      "blocked_reason": "コンテンツは社内識者・専門家レビュー後に公開",
+      "feature_requirement_ids": ["F011"]
+    },
+    {
+      "id": "F012",
+      "title": "Level 4: 営業・提案コンテンツ",
+      "description": "ROI訴求・反対意見対応学習・ロールプレイングクイズ。社内識者レビュー必須",
+      "priority": "Must",
+      "status": "BLOCKED",
+      "phase": "1",
+      "agent": "game-level",
+      "blocked_reason": "コンテンツは社内識者・専門家レビュー後に公開",
+      "feature_requirement_ids": ["F012"]
+    },
+    {
+      "id": "F013",
+      "title": "Level 5: BizDev・戦略コンテンツ",
+      "description": "アライアンス・Embedded Finance・UE学習・事業計画シミュレーション。社内識者レビュー必須",
+      "priority": "Must",
+      "status": "BLOCKED",
+      "phase": "1",
+      "agent": "game-level",
+      "blocked_reason": "コンテンツは社内識者・専門家レビュー後に公開",
+      "feature_requirement_ids": ["F013"]
+    },
+    {
+      "id": "F014",
+      "title": "ゲストプレビュー",
+      "description": "Level 1の冒頭のみ未認証で体験できる試しモード",
+      "priority": "Should",
+      "status": "READY",
+      "phase": "1",
+      "agent": "game-level",
+      "feature_requirement_ids": ["F014"]
+    },
+    {
+      "id": "F015",
+      "title": "学習履歴・スコア確認",
+      "description": "過去のクイズ結果・パラメータ推移の履歴閲覧",
+      "priority": "Should",
+      "status": "READY",
+      "phase": "1",
+      "agent": "game-level",
+      "feature_requirement_ids": ["F015"],
+      "screens": ["S012"]
+    },
+    {
+      "id": "F016",
+      "title": "管理者コンテンツCMS",
+      "description": "社内識者が座学テキスト・クイズ内容をGUI編集できる管理画面",
+      "priority": "Could",
+      "status": "READY",
+      "phase": "1.5",
+      "agent": "admin",
+      "feature_requirement_ids": ["F016"],
+      "screens": ["S013"]
+    }
+  ],
+  "status_definitions": {
+    "READY": "実装可能。Implementer が着手できる状態",
+    "IN_PROGRESS": "実装中",
+    "IN_REVIEW": "Reviewer/QA/Security レビュー中",
+    "COMPLETE": "全品質ゲート通過・マージ済み",
+    "BLOCKED": "外部依存（コンテンツレビュー等）により保留中"
+  }
+}

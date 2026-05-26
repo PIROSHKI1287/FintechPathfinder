@@ -77,25 +77,43 @@ api/controllers/analyzer.ctrl.ts       ├── logic/     ← ロジックこ�
 ---
 
 ## [プロジェクト固有] 技術スタック決定
-[プロジェクト開始時に記入]
 
 ```
-決定内容:
-理由:
+決定内容: Next.js 14.2+ (App Router) + Prisma + PostgreSQL (Railway) + NextAuth.js v5
+理由: Next.js はフロント・バックを一体管理できSEO対応も容易。PrismaはPostgreSQLとの
+      型安全な連携とマイグレーション管理が容易。NextAuth.js v5はNext.js App Routerと
+      の相性が最も高くGoogle OAuth追加も容易。
 受け入れたトレードオフ:
+  - Railway の無料プランはコールドスタートがある（社内利用のため許容）
+  - NextAuth.js v5 は beta 段階だが App Router との互換性を優先
+  - Jotai はパラメータ管理のみに限定（複雑な状態管理は将来課題）
 却下した選択肢:
+  - Supabase: コンテンツを柔軟にDB管理したいため Prisma+Railway を選択
+  - Clerk: OSS 優先・カスタマイズ性を重視して NextAuth.js を選択
+  - tRPC: Phase 1 では REST で十分、複雑性を避ける
 ```
 
 ---
 
 ## [プロジェクト固有] データフロー図
-[プロジェクト開始時に記入]
 
 ```
-[ユーザー] → [agents/_shell/ui] → [agents/[feature]/ui]
-                                        → [agents/[feature]/api]
-                                              → [agents/[feature]/logic]
-                                                    → [core/db] → [DB]
+[ユーザー(ブラウザ)]
+    ↓ HTTP
+[app/ — Next.js App Router（薄いアダプタ）]
+    ↓ import
+[agents/[feature]/ui/ — React コンポーネント]
+    ↓ fetch / Server Action
+[app/api/[route]/ — Route Handler（薄いアダプタ）]
+    ↓ import
+[agents/[feature]/api/ + logic/ — ビジネスロジック]
+    ↓ import
+[core/db/prisma.ts — Prisma Client]
+    ↓ SQL
+[PostgreSQL (Railway)]
+
+認証フロー:
+[middleware.ts] → [core/auth/auth.ts (NextAuth.js)] → [DB sessions / JWT]
 ```
 
 ---
@@ -104,4 +122,7 @@ api/controllers/analyzer.ctrl.ts       ├── logic/     ← ロジックこ�
 
 | 日付 | 判断内容 | 理由 | 代替案 |
 |------|---------|------|--------|
-| [YYYY-MM-DD] | [初期作成] | - | - |
+| 2026-05-26 | app/ をプロジェクトルートに配置（標準 Next.js） | Next.js は app/ の配置場所をルートまたは src/ のみサポート。要件定義書 §8.3 の agents/_shell/app/ は概念モデルであり、実装では標準構造を採用 | agents/_shell/app/ へのシンボリックリンク（Windows での信頼性に懸念） |
+| 2026-05-26 | NextAuth.js v5 (Auth.js beta) 採用 | Next.js App Router との最高互換性。stable v4 は App Router のサポートが不完全 | NextAuth.js v4（stable だが App Router 対応不完全） |
+| 2026-05-26 | ゲームパラメータ計算をサーバーサイドに限定 | クライアント改ざん防止。quiz agents/quiz/api/ の POST /api/quiz/answer でのみ計算・保存 | クライアントサイド計算（改ざんリスクあり） |
+| 2026-05-26 | コンテンツを isPublished フラグで管理 | 社内識者レビュー前のコンテンツを誤公開しない。BLOCKED ステータスのタスクはレビュー待ち | 別テーブルでドラフト管理 |

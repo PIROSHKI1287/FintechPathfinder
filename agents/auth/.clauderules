@@ -1,0 +1,38 @@
+# agents/auth/.clauderules
+# この専門家は認証・認可・免責事項機能を担当する。
+
+## 責任範囲
+- ユーザーの新規登録・ログイン・ログアウト・セッション管理
+- 免責事項モーダルの表示・同意取得・記録（F008）
+- プロフィール設定・パスワード変更（S014）
+- 管理者権限チェック（role=admin）のサーバーサイド検証
+
+## この専門家が core/ に依存できるもの
+- core/auth/  : NextAuth.js 設定・セッション取得
+- core/db/    : users テーブル・disclaimer_consents テーブルへのクエリ
+- core/utils/ : Zodスキーマ・cn ユーティリティ
+
+## 担当 API エンドポイント
+- POST /api/auth/register
+- POST /api/auth/[...nextauth]（NextAuth.js ハンドラ）
+- POST /api/consent
+
+## 担当画面
+- S002: 免責事項モーダル（/ のルートで表示）
+- S003: ユーザー登録 (/register)
+- S004: ログイン (/login)
+- S014: プロフィール・設定 (/settings)
+
+## 技術的制約（本能ルール）
+- パスワードは必ず bcryptjs（saltRounds=12）でハッシュ化してから DB 保存
+- セッションは NextAuth.js の JWT 戦略を使用（PrismaAdapter と併用）
+- 同意なしのユーザーはゲーム本編 URL にアクセス不可（core/middleware/auth.ts で制御）
+- 管理者 API へのアクセスは session.user.role === 'admin' をサーバーサイドで検証
+- register エンドポイントは Zod スキーマでバリデーション後に DB 保存
+- IP アドレスは disclaimer_consents に記録（プライバシーポリシー適用後）
+
+## 禁止事項
+- 他エージェントのDBテーブルに直接アクセスしない（user_progress等）
+- パスワードをログに出力しない
+- セッショントークンをクライアントで露出させない
+- bcrypt の saltRounds を 10 未満に下げない

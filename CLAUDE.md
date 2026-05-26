@@ -4,7 +4,7 @@
 ---
 
 ## Mission
-[プロジェクト開始時に1文で記入: このシステムは何をするか]
+BPSP（Business Payment Service Provider）のドメイン知識と、それを事業として成立・グロースさせるBizDevスキルを、段階的に学べるWebベースのシミュレーションゲームを開発する。
 
 ---
 
@@ -40,15 +40,18 @@ CLAUDE.md（今ここ）→ AGENTS_COMMON.md → agents/{ロール}/.clauderules
 ---
 
 ## アーキテクチャ設定
-[プロジェクト開始時に記入 — docs/ARCHITECTURE.md も同時更新すること]
 
 ```
-フレームワーク (Frontend) : [例: Next.js 15 / React 19]
-フレームワーク (Backend)  : [例: FastAPI / Express / Hono]
-データベース              : [例: PostgreSQL / Supabase / MongoDB]
-認証                      : [例: NextAuth / Clerk / Firebase Auth]
-インフラ                  : [例: Vercel / Railway / AWS]
-主要パターン              : [例: Repository Pattern / Server Actions / REST]
+フレームワーク (Frontend) : Next.js 14.2+ (App Router) + React 18
+フレームワーク (Backend)  : Next.js Route Handlers（agents/[f]/api/ から import）
+データベース              : PostgreSQL (Railway)
+ORM                       : Prisma 5.x
+認証                      : NextAuth.js v5 (Auth.js) + Credentials Provider
+インフラ                  : Vercel (App) + Railway (DB)
+状態管理                  : Jotai（ゲームパラメータ管理）
+バリデーション            : Zod（フロント・サーバー両面）
+スタイリング              : Tailwind CSS + shadcn/ui
+主要パターン              : MoE（agents/ 中心）+ Server Components + REST
 ```
 
 詳細は `docs/ARCHITECTURE.md` を参照すること。
@@ -162,6 +165,6 @@ CLAUDE.md（今ここ）→ AGENTS_COMMON.md → agents/{ロール}/.clauderules
 ---
 
 ## メタデータ
-- 最終更新: 2026-05-12
-- 更新理由: v4.0 — Tessid S評価知見を標準環境へ反映（ファイル読み込み順序・SECURITY_HALT・品質ゲート・失敗パターン早見表・蒸留サイクル・タスクプロトコル）
+- 最終更新: 2026-05-26
+- 更新理由: BPSP BizDev育成ゲーム開発開始 — アーキテクチャ設定を技術スタックで更新（SETUP-001）
 - GitHub: https://github.com/PIROSHKI1287/My_Deveropment

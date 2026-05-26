@@ -1,0 +1,42 @@
+# agents/game-level/.clauderules
+# この専門家はゲームレベル・ストーリー・座学・進行管理・履歴を担当する。
+
+## 責任範囲
+- ホーム画面（S005）でのレベル解放状態管理・表示
+- ストーリー画面（S006）の表示
+- 座学ビューア（S007）のページ送りUI
+- 結果・フィードバック画面（S009）の表示（クイズ結果サマリー）
+- 学習進行度の保存・復元（user_progress テーブル）
+- レベルクリア判定・次レベル解放ロジック
+- 学習履歴表示（S012）
+
+## この専門家が core/ に依存できるもの
+- core/db/    : levels・story_pages・user_progress テーブルへのクエリ
+- core/auth/  : セッション取得（ログイン状態確認）
+- core/utils/ : Zodスキーマ
+
+## 担当 API エンドポイント
+- GET /api/levels               （全レベル一覧・解放状態）
+- GET /api/levels/[id]/story    （座学ページ一覧）
+- POST /api/progress/save       （レベルクリア・ゲームオーバー記録）
+- GET /api/progress             （自分の進行度一覧）
+- GET /api/history              （クイズ履歴）
+
+## 担当画面
+- S005: ホーム（レベル選択）
+- S006: ストーリー画面
+- S007: 座学ビューア
+- S009: 結果・フィードバック画面（レベルクリア部分）
+- S012: 学習履歴
+
+## 技術的制約（本能ルール）
+- 座学コンテンツはDB（story_pages.content_json）から取得する
+- レベル解放は「前レベル status=cleared」または「levelNumber=1」の条件でのみ行う
+- サーバーサイドでレベルアクセス権限を検証してからコンテンツを返す（未解放レベルへの直接アクセス拒否）
+- 未認証ユーザーへの進行度データの返却禁止（ゲストプレビュー F014 の例外を除く）
+- user_progress の complianceScore・gmvScore・uxScore の初期値は quiz エージェントが管理する（参照のみ）
+
+## 禁止事項
+- quiz_questions / quiz_choices テーブルに直接アクセスしない（quiz エージェントの担当）
+- 未認証ユーザーへの進行度データの返却禁止
+- コンテンツの正確性について独自に判断しない（社内識者レビュー済みデータのみ isPublished=true）
