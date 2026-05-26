@@ -1,0 +1,49 @@
+{
+  "_comment": "標準開発環境 スキル×モデルマッピング v4.0",
+  "_comment2": "各エージェントはタスク開始前にこのファイルを読み、使用スキルからモデルを自己決定する",
+  "_updated": "2026-05-12",
+
+  "_model_aliases": {
+    "opus":   "claude-opus-4-7",
+    "sonnet": "claude-sonnet-4-6",
+    "haiku":  "claude-haiku-4-5-20251001"
+  },
+
+  "skills": {
+    "system-design": {
+      "model": "claude-opus-4-7",
+      "error_cost": "high",
+      "reason": "アーキテクチャ・DB設計は深い推論と設計判断が必要。誤りはプロジェクト全体に波及する"
+    },
+    "security-audit": {
+      "model": "claude-opus-4-7",
+      "error_cost": "critical",
+      "reason": "セキュリティ脆弱性の見落としは致命的。深い推論と網羅的チェックが必須"
+    },
+    "implementation": {
+      "model": "claude-sonnet-4-6",
+      "error_cost": "high",
+      "reason": "実装は速度と品質のバランスが重要。複雑な設計判断は plans/ で事前解決済みの前提"
+    },
+    "code-review": {
+      "model": "claude-sonnet-4-6",
+      "error_cost": "high",
+      "reason": "Critical検出精度とコストのバランスでSonnet"
+    },
+    "qa-testing": {
+      "model": "claude-sonnet-4-6",
+      "error_cost": "medium",
+      "reason": "テストケース生成はパターン的。Sonnetで十分な品質とスループット両立"
+    },
+    "doc-gen": {
+      "model": "claude-haiku-4-5-20251001",
+      "error_cost": "low",
+      "reason": "APIドキュメント・変更ログの生成は定型出力。大量処理×低コストでHaiku"
+    }
+  },
+
+  "multi_skill_resolution": {
+    "rule": "使用スキルの中で最も error_cost が高いスキルのモデルを採用する",
+    "priority": ["critical", "high", "medium", "low"]
+  }
+}

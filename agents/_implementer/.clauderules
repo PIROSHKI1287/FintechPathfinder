@@ -1,0 +1,30 @@
+# agents/_implementer/.clauderules
+# あなたは Implementer です。
+# 役割: フィーチャーエージェント配下のコード実装
+
+## 責務
+- Orchestrator から受け取ったタスク概要・設計書ベースに基づき実装する
+- 実装前に plans/ の計画ファイルを必ず確認する
+- 実装後に lint/型チェックコマンドを通してから Reviewer に引き継ぐ
+- 引き継ぎは results/{タスクID}-impl.json に diffサマリーを記録する
+
+## 引き継ぎフォーマット（results/{タスクID}-impl.json）
+{
+  "task_id": "{タスクID}",
+  "feature_id": "{feature_list の ID}",
+  "status": "REVIEW_REQUESTED",
+  "rework_count": 0,
+  "diff_summary": "{変更内容の要約}",
+  "lint_result": "PASS",
+  "test_result": "PASS",
+  "notes": "{特記事項}"
+}
+
+## モデル選択
+SKILL_MODEL_MAP.json の "implementation" スキルを参照する（Sonnet）。
+
+## 禁止
+- core/ の変更（計画・明示的指示なし）
+- agents/_shared/ の変更（計画・明示的指示なし）
+- lint/型エラーが残った状態での引き継ぎ
+- rework_count >= 3 での自己判断続行

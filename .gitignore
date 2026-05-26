@@ -1,0 +1,42 @@
+# Environment
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.nuxt/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+
+# Scratchpad (temporary work - not for production)
+scratchpad/*
+!scratchpad/.gitkeep
+
+# Secrets
+*.pem
+*.key
+secrets/
