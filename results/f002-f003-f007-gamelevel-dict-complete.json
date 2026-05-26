@@ -1,0 +1,45 @@
+{
+  "task_id": "f002-f003-f007-gamelevel-dict",
+  "feature_ids": ["F002", "F003", "F007"],
+  "title": "学習進行度管理 + 座学ビューア + ミニ辞書",
+  "completed_at": "2026-05-27T00:00:00Z",
+  "used_model": "claude-sonnet-4-6",
+  "status": "COMPLETE",
+  "files_created": [
+    "plans/2026-05-27-f002-f003-f007-gamelevel-dict.md",
+    "agents/game-level/logic/levels.ts",
+    "agents/game-level/logic/progress.ts",
+    "agents/game-level/logic/story.ts",
+    "agents/game-level/api/levels.ts",
+    "agents/game-level/api/progress.ts",
+    "agents/game-level/api/story.ts",
+    "agents/game-level/ui/HomeScreen.tsx",
+    "agents/game-level/ui/StoryViewer.tsx",
+    "agents/dictionary/logic/terms.ts",
+    "agents/dictionary/api/dictionary.ts",
+    "agents/dictionary/ui/DictionaryPage.tsx"
+  ],
+  "files_updated": [
+    "core/utils/schemas.ts (saveProgressSchema + SaveProgressInput 追加)",
+    "app/api/levels/route.ts",
+    "app/api/levels/[id]/story/route.ts",
+    "app/api/progress/route.ts",
+    "app/api/progress/save/route.ts",
+    "app/api/dictionary/route.ts",
+    "app/api/dictionary/[id]/route.ts",
+    "app/(game)/home/page.tsx (HomeScreen 組み込み)",
+    "app/(game)/game/[level]/learn/page.tsx (StoryViewer 組み込み)",
+    "app/(game)/dictionary/page.tsx (DictionaryPage 組み込み)"
+  ],
+  "architecture_decisions": [
+    "LearnPage は Server Component として getLevelStory を直接呼び出す（API 経由を回避）",
+    "HomeScreen は Client Component で /api/levels をフェッチ（同意チェック後に表示）",
+    "isPublished=false のレベルは解放状態と区別してUI表示（コンテンツ準備中ラベル）",
+    "辞書検索はサーバーサイド Prisma contains/insensitive（.clauderules 準拠）"
+  ],
+  "next_tasks": [
+    "F004-F006: クイズエンジン・パラメータ更新・ゲームオーバー (agents/quiz/)",
+    "F014: ゲストプレビュー (agents/game-level/)",
+    "F015: 学習履歴・スコア確認 (agents/game-level/)"
+  ]
+}
