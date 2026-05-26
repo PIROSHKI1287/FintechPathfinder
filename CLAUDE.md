@@ -47,7 +47,7 @@ CLAUDE.md（今ここ）→ AGENTS_COMMON.md → agents/{ロール}/.clauderules
 データベース              : PostgreSQL (Railway)
 ORM                       : Prisma 5.x
 認証                      : NextAuth.js v5 (Auth.js) + Credentials Provider
-インフラ                  : Vercel (App) + Railway (DB)
+インフラ                  : Railway(App) + Railway (DB)
 状態管理                  : Jotai（ゲームパラメータ管理）
 バリデーション            : Zod（フロント・サーバー両面）
 スタイリング              : Tailwind CSS + shadcn/ui

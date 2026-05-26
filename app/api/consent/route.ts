@@ -1,7 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server'
-// TODO: import { recordConsent } from '@agents/auth/logic/consent'
+import { NextRequest } from 'next/server'
+import { handleConsent } from '@agents/auth/api/consent'
 
 export async function POST(request: NextRequest) {
-  // TODO: implement
-  return NextResponse.json({ message: 'Not implemented' }, { status: 501 })
+  return handleConsent(request)
 }

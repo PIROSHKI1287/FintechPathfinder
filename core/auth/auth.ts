@@ -15,9 +15,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        // TODO: import from agents/auth/logic/authorize
-        void credentials
-        return null
+        if (!credentials?.email || !credentials?.password) return null
+        const { authorizeCredentials } = await import('@agents/auth/logic/authorize')
+        return authorizeCredentials(
+          credentials.email as string,
+          credentials.password as string,
+        )
       },
     }),
   ],

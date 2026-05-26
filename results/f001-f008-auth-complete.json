@@ -1,0 +1,40 @@
+{
+  "task_id": "f001-f008-auth",
+  "feature_ids": ["F001", "F008-consent"],
+  "title": "ユーザー認証 + 免責事項表示・同意記録",
+  "completed_at": "2026-05-27T00:00:00Z",
+  "used_model": "claude-sonnet-4-6",
+  "status": "COMPLETE",
+  "files_created": [
+    "plans/2026-05-27-f001-f008-auth-consent.md",
+    "agents/auth/logic/authorize.ts",
+    "agents/auth/logic/register.ts",
+    "agents/auth/logic/consent.ts",
+    "agents/auth/api/register.ts",
+    "agents/auth/api/consent.ts",
+    "agents/auth/ui/LoginForm.tsx",
+    "agents/auth/ui/RegisterForm.tsx",
+    "agents/auth/ui/DisclaimerModal.tsx",
+    "agents/auth/ui/ConsentGate.tsx"
+  ],
+  "files_updated": [
+    "core/auth/auth.ts (authorize を agents/auth/logic/authorize から動的 import)",
+    "app/api/auth/register/route.ts (handleRegister へ委譲)",
+    "app/api/consent/route.ts (handleConsent へ委譲)",
+    "app/(auth)/login/page.tsx (LoginForm 組み込み)",
+    "app/(auth)/register/page.tsx (RegisterForm 組み込み)",
+    "app/(game)/home/page.tsx (ConsentGate + DisclaimerModal 組み込み)",
+    "middleware.ts (/game パス同意 cookie チェック追加)"
+  ],
+  "architecture_decisions": [
+    "F008 同意チェックは Edge Middleware から DB クエリ不可のため bpsp_consent セッション cookie で実装",
+    "ConsentGate Server Component が cookie を読み、未同意時のみ DisclaimerModal を表示",
+    "authorize は dynamic import で循環参照リスクを回避"
+  ],
+  "next_tasks": [
+    "F002: 学習進行度管理 (agents/game-level/)",
+    "F003: 座学ビューア (agents/game-level/)",
+    "F004-F006: クイズ・パラメータ・ゲームオーバー (agents/quiz/)",
+    "F007: ミニ辞書 (agents/dictionary/)"
+  ]
+}

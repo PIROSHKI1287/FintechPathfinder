@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "project": "bpsp-game",
-  "updated": "2026-05-26",
+  "updated": "2026-05-27",
   "tasks": [
     {
       "id": "SETUP-001",
@@ -19,7 +19,7 @@
       "title": "ユーザー認証",
       "description": "メール・パスワードによる新規登録・ログイン・ログアウト",
       "priority": "Must",
-      "status": "READY",
+      "status": "COMPLETE",
       "phase": "1",
       "agent": "auth",
       "feature_requirement_ids": ["F001"],
@@ -30,7 +30,7 @@
       "title": "免責事項表示・同意記録",
       "description": "毎回利用時に免責事項モーダルを表示。同意取得後にゲーム利用可能。未同意ユーザーはゲーム本編URLにアクセス不可",
       "priority": "Must",
-      "status": "READY",
+      "status": "COMPLETE",
       "phase": "1",
       "agent": "auth",
       "feature_requirement_ids": ["F008"],
