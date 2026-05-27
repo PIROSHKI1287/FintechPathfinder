@@ -15,6 +15,15 @@
 
 ---
 
+## 2026-05-27 — content-001 F009–F013 コンテンツシード Railway DB適用
+
+- 承認者: 人間（piroshki0926@gmail.com）
+- 操作: BPSP_knowledge_base.md（2026年5月版）を添付して全5レベルのコンテンツ作成を指示
+- 結果: 承認（「コンテンツについては添付を参照して作成して」）
+- 備考: seed-content.ts 実行済み、全レベル isPublished=true。人間によるE2E確認待ち
+
+---
+
 ## 2026-05-27 — f016-001 F016 管理者コンテンツCMS E2E確認
 
 - 承認者: 人間（piroshki0926@gmail.com）
