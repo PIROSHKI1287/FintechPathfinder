@@ -83,7 +83,7 @@
     {
       "id": "F009",
       "title": "Level 1: 基礎概念コンテンツ",
-      "description": "BPSPの4者間の仕組み・「金の流れ」学習・クイズ。社内識者レビュー必須",
+      "description": "BPSPの4者間の仕組み・「金の流れ」学習・クイズ",
       "priority": "Must",
       "status": "COMPLETE",
       "phase": "1",
@@ -94,7 +94,7 @@
     {
       "id": "F010",
       "title": "Level 2: 法規制コンテンツ",
-      "description": "資金決済法・割販法・AML/KYC学習・審査シミュレーション。社内識者レビュー必須",
+      "description": "資金決済法・割販法・AML/KYC学習・審査シミュレーション",
       "priority": "Must",
       "status": "COMPLETE",
       "phase": "1",
@@ -104,7 +104,7 @@
     {
       "id": "F011",
       "title": "Level 3: 実務・システムコンテンツ",
-      "description": "システム連携・消込・CF管理学習・トラブルシューティング。社内識者レビュー必須",
+      "description": "システム連携・消込・CF管理学習・トラブルシューティング",
       "priority": "Must",
       "status": "COMPLETE",
       "phase": "1",
@@ -114,7 +114,7 @@
     {
       "id": "F012",
       "title": "Level 4: 営業・提案コンテンツ",
-      "description": "ROI訴求・反対意見対応学習・ロールプレイングクイズ。社内識者レビュー必須",
+      "description": "ROI訴求・反対意見対応学習・ロールプレイングクイズ",
       "priority": "Must",
       "status": "COMPLETE",
       "phase": "1",
@@ -124,7 +124,7 @@
     {
       "id": "F013",
       "title": "Level 5: BizDev・戦略コンテンツ",
-      "description": "アライアンス・Embedded Finance・UE学習・事業計画シミュレーション。社内識者レビュー必須",
+      "description": "アライアンス・Embedded Finance・UE学習・事業計画シミュレーション",
       "priority": "Must",
       "status": "COMPLETE",
       "phase": "1",
