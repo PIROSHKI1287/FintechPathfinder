@@ -141,7 +141,7 @@
       "title": "ゲストプレビュー",
       "description": "Level 1の冒頭のみ未認証で体験できる試しモード",
       "priority": "Should",
-      "status": "READY",
+      "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
       "feature_requirement_ids": ["F014"]
@@ -151,7 +151,7 @@
       "title": "学習履歴・スコア確認",
       "description": "過去のクイズ結果・パラメータ推移の履歴閲覧",
       "priority": "Should",
-      "status": "READY",
+      "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
       "feature_requirement_ids": ["F015"],
