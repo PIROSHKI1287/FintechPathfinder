@@ -53,7 +53,7 @@ export default function ResultScreen({
       <div className="flex flex-col gap-3">
         {hasNextLevel && (
           <Link
-            href={`/game/${levelNumber + 1}/story`}
+            href={`/game/${levelNumber + 1}/learn`}
             className="rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
             Level {levelNumber + 1} へ進む →

@@ -39,3 +39,5 @@
 - user_progress テーブルに直接アクセスしない（game-level エージェントの担当）
 - クライアント側でパラメータを直接変更しない
 - 正解フラグ（isCorrect）をクライアントに事前送信しない
+- API リクエストの ID バリデーションに `.cuid()` を使用しない（非cuid形式の開発用シードIDを排除する）。`.string().min(1)` を使用し、実在確認はDBルックアップで行う
+- ResultScreen・GameOverScreen から `/game/[level]/story` にリンクしない（実装済みルートは `/game/[level]/learn`）

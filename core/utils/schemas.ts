@@ -17,9 +17,9 @@ export const loginSchema = z.object({
 
 // クイズ回答スキーマ
 export const quizAnswerSchema = z.object({
-  questionId: z.string().cuid(),
-  chosenChoiceId: z.string().cuid(),
-  levelId: z.string().cuid(),
+  questionId: z.string().min(1),
+  chosenChoiceId: z.string().min(1),
+  levelId: z.string().min(1),
 })
 
 // 辞書検索スキーマ
@@ -29,7 +29,7 @@ export const dictionarySearchSchema = z.object({
 
 // 進行度保存スキーマ
 export const saveProgressSchema = z.object({
-  levelId: z.string().cuid(),
+  levelId: z.string().min(1),
   status: z.enum(['in_progress', 'cleared', 'game_over']),
   complianceScore: z.number().int().min(0).max(100),
   gmvScore: z.number().int().min(0),

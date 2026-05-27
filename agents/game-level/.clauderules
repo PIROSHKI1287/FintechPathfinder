@@ -40,3 +40,4 @@
 - quiz_questions / quiz_choices テーブルに直接アクセスしない（quiz エージェントの担当）
 - 未認証ユーザーへの進行度データの返却禁止
 - コンテンツの正確性について独自に判断しない（社内識者レビュー済みデータのみ isPublished=true）
+- `/game/[level]/story` へのリンク・遷移を書かない（実装済みルートは `/game/[level]/learn`）

@@ -65,7 +65,7 @@ export default function HomeScreen() {
         <LevelCard
           key={level.id}
           level={level}
-          onStart={() => router.push(`/game/${level.levelNumber}/story`)}
+          onStart={() => router.push(`/game/${level.levelNumber}/learn`)}
           onContinue={() => router.push(`/game/${level.levelNumber}/learn`)}
         />
       ))}
