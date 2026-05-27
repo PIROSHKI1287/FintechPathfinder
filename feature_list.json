@@ -162,7 +162,7 @@
       "title": "管理者コンテンツCMS",
       "description": "社内識者が座学テキスト・クイズ内容をGUI編集できる管理画面",
       "priority": "Could",
-      "status": "READY",
+      "status": "COMPLETE",
       "phase": "1.5",
       "agent": "admin",
       "feature_requirement_ids": ["F016"],

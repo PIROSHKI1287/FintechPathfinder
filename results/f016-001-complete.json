@@ -1,0 +1,40 @@
+{
+  "task_id": "f016-001",
+  "feature_id": "F016",
+  "status": "COMPLETE",
+  "completed_at": "2026-05-27",
+  "used_model": "claude-sonnet-4-6",
+  "commit": "aae832b",
+  "files_created": [
+    "agents/admin/logic/content.ts",
+    "agents/admin/api/_guard.ts",
+    "agents/admin/api/levels.ts",
+    "agents/admin/api/stories.ts",
+    "agents/admin/api/questions.ts",
+    "agents/admin/api/dictionary.ts",
+    "app/api/admin/levels/route.ts",
+    "app/api/admin/levels/[id]/route.ts",
+    "app/api/admin/levels/[id]/pages/route.ts",
+    "app/api/admin/levels/[id]/pages/[pageId]/route.ts",
+    "app/api/admin/levels/[id]/questions/route.ts",
+    "app/api/admin/questions/[id]/route.ts",
+    "app/api/admin/questions/[id]/choices/route.ts",
+    "app/api/admin/questions/[id]/choices/[choiceId]/route.ts",
+    "app/api/admin/dictionary/route.ts",
+    "app/api/admin/dictionary/[id]/route.ts",
+    "agents/admin/ui/AdminContentPage.tsx",
+    "agents/admin/ui/LevelTab.tsx",
+    "agents/admin/ui/DictionaryTab.tsx"
+  ],
+  "files_modified": [
+    "middleware.ts",
+    "app/(admin)/admin/content/page.tsx"
+  ],
+  "pipeline": {
+    "type_check": "PASS",
+    "lint": "PASS",
+    "reviewer": "PASS",
+    "review_issues_fixed": ["r.ok checks on DELETE", "r.ok checks on mutations", "load() r.ok checks"]
+  },
+  "pending_human_e2e": true
+}
