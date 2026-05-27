@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 const PROTECTED_PATHS = ['/home', '/game', '/dictionary', '/history', '/settings']
-const ADMIN_PATHS = ['/admin']
+const ADMIN_PATHS = ['/admin', '/api/admin']
 // /game 配下は同意 cookie も必須
 const CONSENT_REQUIRED_PATHS = ['/game']
 

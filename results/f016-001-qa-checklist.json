@@ -1,0 +1,6 @@
+{
+  "task_id": "f016-001",
+  "timestamp": "2026-05-27T08:02:52Z",
+  "status": "PENDING_HUMAN_E2E",
+  "checklist": [{"area":"ルーティング・共通","checks":["/ にアクセスすると /login にリダイレクトされる","未認証で保護ページにアクセスすると /login に飛ぶ"]}]
+}
