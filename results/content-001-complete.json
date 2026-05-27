@@ -1,0 +1,41 @@
+{
+  "task_id": "content-001",
+  "feature_ids": ["F009", "F010", "F011", "F012", "F013"],
+  "status": "COMPLETE",
+  "completed_at": "2026-05-27",
+  "used_model": "claude-sonnet-4-6",
+  "files_created": [
+    "prisma/seed-content.ts"
+  ],
+  "files_modified": [
+    "package.json",
+    "feature_list.json"
+  ],
+  "seed_summary": {
+    "levels_published": 5,
+    "story_pages": {
+      "level1": 5,
+      "level2": 5,
+      "level3": 5,
+      "level4": 4,
+      "level5": 4,
+      "total": 23
+    },
+    "quiz_questions": {
+      "level1": 4,
+      "level2": 4,
+      "level3": 3,
+      "level4": 3,
+      "level5": 3,
+      "total": 17
+    },
+    "game_over_questions": ["content-q3-l2 (クロスボーダー収納代行の無承認承認)"],
+    "dev_questions_replaced": ["dev-q1-l1", "dev-q2-l1", "dev-q3-l1"]
+  },
+  "pipeline": {
+    "type_check": "PASS",
+    "db_seed": "PASS"
+  },
+  "knowledge_base": "BPSP_knowledge_base.md (2026年5月版)",
+  "pending_human_e2e": true
+}

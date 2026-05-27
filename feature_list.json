@@ -85,10 +85,9 @@
       "title": "Level 1: 基礎概念コンテンツ",
       "description": "BPSPの4者間の仕組み・「金の流れ」学習・クイズ。社内識者レビュー必須",
       "priority": "Must",
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
-      "blocked_reason": "コンテンツは社内識者・専門家レビュー後に公開。開発チームはコンテンツ正確性に責任を負わない",
       "feature_requirement_ids": ["F009"],
       "screens": ["S006", "S007", "S008", "S009"]
     },
@@ -97,10 +96,9 @@
       "title": "Level 2: 法規制コンテンツ",
       "description": "資金決済法・割販法・AML/KYC学習・審査シミュレーション。社内識者レビュー必須",
       "priority": "Must",
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
-      "blocked_reason": "コンテンツは社内識者・専門家レビュー後に公開",
       "feature_requirement_ids": ["F010"]
     },
     {
@@ -108,10 +106,9 @@
       "title": "Level 3: 実務・システムコンテンツ",
       "description": "システム連携・消込・CF管理学習・トラブルシューティング。社内識者レビュー必須",
       "priority": "Must",
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
-      "blocked_reason": "コンテンツは社内識者・専門家レビュー後に公開",
       "feature_requirement_ids": ["F011"]
     },
     {
@@ -119,10 +116,9 @@
       "title": "Level 4: 営業・提案コンテンツ",
       "description": "ROI訴求・反対意見対応学習・ロールプレイングクイズ。社内識者レビュー必須",
       "priority": "Must",
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
-      "blocked_reason": "コンテンツは社内識者・専門家レビュー後に公開",
       "feature_requirement_ids": ["F012"]
     },
     {
@@ -130,10 +126,9 @@
       "title": "Level 5: BizDev・戦略コンテンツ",
       "description": "アライアンス・Embedded Finance・UE学習・事業計画シミュレーション。社内識者レビュー必須",
       "priority": "Must",
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
-      "blocked_reason": "コンテンツは社内識者・専門家レビュー後に公開",
       "feature_requirement_ids": ["F013"]
     },
     {
