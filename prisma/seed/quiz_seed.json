@@ -1,0 +1,768 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "course": {
+      "slug": "bpsp",
+      "title": "BPSP（請求書カード払い）BizDev育成コース",
+      "description": "BPSPのドメイン知識とBizDevスキルを5段階で習得する実務特化型学習コース"
+    },
+    "schema_note": "Course > Module > Quiz 3層構造。optionsのorderはDB保存用永続順。出題時はアプリ側でシャッフルすること。"
+  },
+  "modules": [
+    {
+      "slug": "l1-basics",
+      "title": "Level 1: 基礎概念",
+      "order": 1,
+      "quizzes": [
+        {
+          "id": "bpsp-l1-q01",
+          "type": "SINGLE",
+          "question": "BPSPの仕組みで、カード利用代金を最終的に負担するのは誰か？",
+          "explanation": "BPSPはバイヤー（買い手企業）がカード払いをするための仕組みです。サプライヤーは銀行振込で代金を受け取り、手数料もバイヤー負担が基本設計です。",
+          "options": [
+            { "text": "バイヤー（買い手企業）", "isCorrect": true, "order": 1 },
+            { "text": "サプライヤー（売り手企業）", "isCorrect": false, "order": 2 },
+            { "text": "BPSP事業者", "isCorrect": false, "order": 3 },
+            { "text": "アクワイアラ", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q02",
+          "type": "SINGLE",
+          "question": "アクワイアラから見たとき、BPSPはどのような位置付けになるか？",
+          "explanation": "BPSPは本来の加盟店ではありませんが、アクワイアラと加盟店契約を結ぶことで「疑似加盟店」として機能します。これがBPSPの仕組みの核心です。",
+          "options": [
+            { "text": "疑似加盟店", "isCorrect": true, "order": 1 },
+            { "text": "イシュア", "isCorrect": false, "order": 2 },
+            { "text": "決済代行会社（PSP）", "isCorrect": false, "order": 3 },
+            { "text": "資金移動業者", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q03",
+          "type": "SINGLE",
+          "question": "BPSPを利用したバイヤーが得られる主な資金繰りメリットはどれか？",
+          "explanation": "カード決済の支払サイクルを利用することで、バイヤーはBPSPが立替した後、カード締め日→支払日まで最大60日程度のキャッシュアウト先送りが可能になります。",
+          "options": [
+            { "text": "支払いを最大60日程度先送りできる", "isCorrect": true, "order": 1 },
+            { "text": "手数料が無料になる", "isCorrect": false, "order": 2 },
+            { "text": "サプライヤーへの支払いが免除される", "isCorrect": false, "order": 3 },
+            { "text": "銀行融資の審査が不要になる", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q04",
+          "type": "SINGLE",
+          "question": "BPSPでサプライヤーへの入金はどのような方法で行われるか？",
+          "explanation": "サプライヤーはBPSPの存在を意識せず、通常の銀行振込で代金を受け取ります。これがサプライヤーに対して商習慣を変えなくて済む最大の理由です。",
+          "options": [
+            { "text": "銀行振込", "isCorrect": true, "order": 1 },
+            { "text": "カード決済", "isCorrect": false, "order": 2 },
+            { "text": "電子マネー", "isCorrect": false, "order": 3 },
+            { "text": "手形", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q05",
+          "type": "MULTI",
+          "question": "BtoBにキャッシュレスが浸透しにくかった主な理由を選べ（複数選択可）",
+          "explanation": "手数料負担（薄利業界では利益が吹き飛ぶ）と環境整備コスト（取引先全社が同じ手段に対応する必要）が2大障壁です。法規制による禁止は誤りです。",
+          "options": [
+            { "text": "売り手の手数料負担が重く利益を圧迫する", "isCorrect": true, "order": 1 },
+            { "text": "取引先全社が同じ決済手段に対応するコーディネーションコストが大きい", "isCorrect": true, "order": 2 },
+            { "text": "法規制でBtoB取引のカード払いが禁止されていた", "isCorrect": false, "order": 3 },
+            { "text": "BtoB取引の金額規模が大きくカード与信枠が足りない場合がある", "isCorrect": true, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q06",
+          "type": "SINGLE",
+          "question": "日本の企業間決済市場の年間規模として、最も近い推計値はどれか？",
+          "explanation": "NTTデータ経営研究所の推計では少なくとも年間1,000兆円超。家計の民間最終消費支出（約322兆円）の3倍以上で、大半がいまだ紙の請求書・銀行振込ベースです。",
+          "options": [
+            { "text": "1,000兆円超", "isCorrect": true, "order": 1 },
+            { "text": "100兆円程度", "isCorrect": false, "order": 2 },
+            { "text": "322兆円程度", "isCorrect": false, "order": 3 },
+            { "text": "10兆円程度", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q07",
+          "type": "SINGLE",
+          "question": "BPSPにおいて、BPSP事業者が受け取る手数料は一般的にどの程度か？",
+          "explanation": "業界目安として2.5〜4%程度とされています。BtoCのカード加盟店手数料（1〜3%前後）より高めになる傾向があります。",
+          "options": [
+            { "text": "2.5〜4%程度", "isCorrect": true, "order": 1 },
+            { "text": "0.1〜0.5%程度", "isCorrect": false, "order": 2 },
+            { "text": "10〜15%程度", "isCorrect": false, "order": 3 },
+            { "text": "手数料は無料", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q08",
+          "type": "SINGLE",
+          "question": "2025年12月に業界統一の英字略称として定められた「請求書カード払い」の呼称はどれか？",
+          "explanation": "キャッシュレス推進協議会が2025年12月26日に「BIPS（Business Invoice Payment Service）」に統一しました。事業者はBIPS事業者と呼ばれます。",
+          "options": [
+            { "text": "BIPS（Business Invoice Payment Service）", "isCorrect": true, "order": 1 },
+            { "text": "BPAP（Business Payment Aggregator Program）", "isCorrect": false, "order": 2 },
+            { "text": "BBPS（BtoB Payment Service）", "isCorrect": false, "order": 3 },
+            { "text": "BPSP（Business Payment Service Provider）", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q09",
+          "type": "SINGLE",
+          "question": "BtoBとBtoCの決済を比較した場合、BtoBの特徴として正しいのはどれか？",
+          "explanation": "BtoBは平均取引金額が高く（数万〜数千万円）、銀行振込が主流で、売り手・買い手の役割が入れ替わることが多いです。",
+          "options": [
+            { "text": "平均取引金額が高く銀行振込が主流", "isCorrect": true, "order": 1 },
+            { "text": "キャッシュレス比率がBtoCより高い", "isCorrect": false, "order": 2 },
+            { "text": "手数料は売り手負担が一般的", "isCorrect": false, "order": 3 },
+            { "text": "売り手と買い手の関係は常に固定", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q10",
+          "type": "SINGLE",
+          "question": "BPSPの5者構造に含まれないプレイヤーはどれか？",
+          "explanation": "BPSPの5者はバイヤー・サプライヤー・BPSP事業者・アクワイアラ・イシュア（＋国際ブランド）です。保険会社はこの構造に含まれません。",
+          "options": [
+            { "text": "保険会社", "isCorrect": true, "order": 1 },
+            { "text": "アクワイアラ", "isCorrect": false, "order": 2 },
+            { "text": "イシュア", "isCorrect": false, "order": 3 },
+            { "text": "サプライヤー", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q11",
+          "type": "SINGLE",
+          "question": "サプライヤーがBPSPの仕組みを利用した場合のデメリットとして最も適切なものはどれか？",
+          "explanation": "サプライヤーとBPSP事業者の間に直接契約がないケースが多く、見覚えのない振込人名義で入金されると消込が困難になる場合があります。また理論上、不正請求リスクもゼロではありません。",
+          "options": [
+            { "text": "見覚えのない振込人名義で入金され消込が困難になる場合がある", "isCorrect": true, "order": 1 },
+            { "text": "手数料をサプライヤーが負担しなければならない", "isCorrect": false, "order": 2 },
+            { "text": "カード会社との直接契約が必要になる", "isCorrect": false, "order": 3 },
+            { "text": "入金が必ず遅延する", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l1-q12",
+          "type": "SINGLE",
+          "question": "バイヤーがBPSPでクレジットカードを使う最大のメリットとして、資金繰り以外に挙げられるものはどれか？",
+          "explanation": "高額のBtoB取引でカード決済を使うとポイント還元額も大きくなります。年間取引額が数千万円規模になる企業では、ポイント効果が無視できない水準になります。",
+          "options": [
+            { "text": "カードポイントの大きな還元を受けられる", "isCorrect": true, "order": 1 },
+            { "text": "サプライヤーへの支払いが不要になる", "isCorrect": false, "order": 2 },
+            { "text": "法人税の減税が受けられる", "isCorrect": false, "order": 3 },
+            { "text": "銀行融資の審査が免除される", "isCorrect": false, "order": 4 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "l2-regulations",
+      "title": "Level 2: 法規制",
+      "order": 2,
+      "quizzes": [
+        {
+          "id": "bpsp-l2-q01",
+          "type": "SINGLE",
+          "question": "BPSPが「為替取引」に該当するリスクを回避するために採用するスキーム設計はどれか？",
+          "explanation": "為替取引とは「隔地者間で資金を移動する仕組みを提供する」業務。BPSPは自己の名義で立替払いを行う設計にすることで第三者への資金移動と見なされないようにします。",
+          "options": [
+            { "text": "自己の名義で立替払いを行うスキーム設計", "isCorrect": true, "order": 1 },
+            { "text": "バイヤーの代理人として送金する設計", "isCorrect": false, "order": 2 },
+            { "text": "サプライヤーに現金で直接渡す設計", "isCorrect": false, "order": 3 },
+            { "text": "国際送金のみ資金移動業登録する設計", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q02",
+          "type": "SINGLE",
+          "question": "2025年4月に金融庁が公表した「立替サービスの貸金業該当性に関するQ&A」が示す判断の主要な考慮軸として正しいのはどれか？",
+          "explanation": "①資金需要者の支払能力をどの程度補完しているか、②資金需要者の信用力をどの程度考慮しているか、の2点を中心に実質的に判断します。",
+          "options": [
+            { "text": "支払能力の補完度合いと信用力の考慮度合い", "isCorrect": true, "order": 1 },
+            { "text": "立替金額の絶対額と立替期間の長さ", "isCorrect": false, "order": 2 },
+            { "text": "業者の資本金と登録番号の有無", "isCorrect": false, "order": 3 },
+            { "text": "取扱業種と加盟店数", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q03",
+          "type": "SCENARIO",
+          "question": "シナリオ審査：ある利用者が「海外（米国）の広告プラットフォームへの支払い500万円」をBPSPで処理したいと申請してきた。どう対応すべきか？",
+          "explanation": "クロスボーダー収納代行は2025年改正資金決済法で資金移動業登録が必要となるリスクがあります。国内法人に限定するBIPSガイドラインとも不整合のため、拒否または専用スキームの検討が必要です。",
+          "options": [
+            { "text": "拒否し、クロスボーダー対応スキームの検討を案内する", "isCorrect": true, "order": 1 },
+            { "text": "金額が大きいので特別に承認する", "isCorrect": false, "order": 2 },
+            { "text": "問題ないので通常通り承認する", "isCorrect": false, "order": 3 },
+            { "text": "サプライヤーに確認してから承認する", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q04",
+          "type": "SCENARIO",
+          "question": "シナリオ審査：利用者から「関連グループ会社への支払い200万円」の申請があった。どう対応すべきか？",
+          "explanation": "自己決済（実質的な現金化）の典型的な手口です。自社のカードで自社グループへ支払うことで現金相当の資金を得る不正利用に該当するため、拒否が妥当です。",
+          "options": [
+            { "text": "拒否する（自己決済による実質現金化の疑い）", "isCorrect": true, "order": 1 },
+            { "text": "グループ会社は問題ないので承認する", "isCorrect": false, "order": 2 },
+            { "text": "金額が小さいので承認する", "isCorrect": false, "order": 3 },
+            { "text": "代表者の承認書を取得して承認する", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q05",
+          "type": "SCENARIO",
+          "question": "シナリオ審査：利用申込書の代表者欄に、PEP（重要な公的地位を有する者）の記載があった。どう対応すべきか？",
+          "explanation": "PEPは直ちに拒否ではなく、強化された顧客管理（Enhanced Due Diligence: EDD）の対象として継続審査を行います。",
+          "options": [
+            { "text": "EDD（強化された顧客管理）の対象として継続審査する", "isCorrect": true, "order": 1 },
+            { "text": "即時拒否する", "isCorrect": false, "order": 2 },
+            { "text": "問題ないので通常通り承認する", "isCorrect": false, "order": 3 },
+            { "text": "PEP確認は法的義務がないので無視する", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q06",
+          "type": "SINGLE",
+          "question": "BIPSガイドライン（2025年12月策定）でBIPS事業者からサプライヤーへの送金方法として規定されているのはどれか？",
+          "explanation": "マネロンリスク低減のため、送金は銀行振込に限定。現金の物理的受け渡しは禁止されています。サプライヤーの口座も身元確認済みの金融機関口座に限定されます。",
+          "options": [
+            { "text": "銀行振込のみ（現金受け渡し禁止）", "isCorrect": true, "order": 1 },
+            { "text": "現金または銀行振込", "isCorrect": false, "order": 2 },
+            { "text": "電子マネーまたは銀行振込", "isCorrect": false, "order": 3 },
+            { "text": "方法は事業者が自由に選択できる", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q07",
+          "type": "SINGLE",
+          "question": "割賦販売法において、BPSPが関係しうる可能性が最も高い規制対象はどれか？",
+          "explanation": "割販法のセキュリティ対策義務の対象として「立替払取次業者のために加盟店に立替金を交付する事業者」が規定されており、BPSPはここに該当する可能性があります。",
+          "options": [
+            { "text": "立替払取次業者のために加盟店に立替金を交付する事業者", "isCorrect": true, "order": 1 },
+            { "text": "包括信用購入あっせん業者", "isCorrect": false, "order": 2 },
+            { "text": "前払式支払手段発行者", "isCorrect": false, "order": 3 },
+            { "text": "貸金業者", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q08",
+          "type": "SINGLE",
+          "question": "AML/KYCにおいて「eKYC」とは何か？",
+          "explanation": "2018年の犯収法施行規則改正で導入されたオンライン本人確認の仕組みです。ICチップ読み取りや公的個人認証などの方式があります。",
+          "options": [
+            { "text": "オンラインで完結する本人確認手続き", "isCorrect": true, "order": 1 },
+            { "text": "企業の口座照合専用の本人確認", "isCorrect": false, "order": 2 },
+            { "text": "海外送金専用の本人確認", "isCorrect": false, "order": 3 },
+            { "text": "カード番号の暗号化技術", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q09",
+          "type": "SINGLE",
+          "question": "BIPSガイドラインで、協会未登録のBIPS事業者に対してアクワイアラはどのような対応が義務付けられているか？",
+          "explanation": "ガイドラインでは、アクワイアラは協会未登録のBIPS事業者と加盟店契約を締結できないと定められています。これにより業界全体の底上げを図っています。",
+          "options": [
+            { "text": "加盟店契約を締結できない", "isCorrect": true, "order": 1 },
+            { "text": "取扱高を制限する", "isCorrect": false, "order": 2 },
+            { "text": "特別な審査を実施して承認できる", "isCorrect": false, "order": 3 },
+            { "text": "ガイドラインは任意のため制限なし", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q10",
+          "type": "SINGLE",
+          "question": "貸金業非該当に近づく設計として最も適切なのはどれか？",
+          "explanation": "事務作業効率化が主目的で少額・短期かつ利用者属性別の与信判断を行わない汎用的な手数料体系であれば、貸金業と判断されにくくなります。",
+          "options": [
+            { "text": "利用者属性別の与信判断を行わず、汎用的な手数料体系を採用する", "isCorrect": true, "order": 1 },
+            { "text": "利用者の財務状況に応じて手数料を変動させる", "isCorrect": false, "order": 2 },
+            { "text": "月収確認書類の提出を求めて利用上限を設定する", "isCorrect": false, "order": 3 },
+            { "text": "立替期間を最大180日に設定する", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q11",
+          "type": "SINGLE",
+          "question": "犯収法（犯罪収益移転防止法）の主な義務として正しいのはどれか？",
+          "explanation": "犯収法は特定事業者に対して、取引時確認・取引記録の保存・疑わしい取引の届出の3つを義務付けています。",
+          "options": [
+            { "text": "取引時確認・記録保存・疑わしい取引の届出", "isCorrect": true, "order": 1 },
+            { "text": "毎月の売上報告・利用者数の報告・手数料の公示", "isCorrect": false, "order": 2 },
+            { "text": "カード番号の暗号化・トークン化・PCI DSS取得", "isCorrect": false, "order": 3 },
+            { "text": "加盟店審査・反社チェック・年次報告", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l2-q12",
+          "type": "SCENARIO",
+          "question": "シナリオ審査：飲食業で登録している利用者から「中古車ディーラーへの支払い1,200万円」の申請が来た。どう対応すべきか？",
+          "explanation": "飲食業として登録しているのに中古車ディーラーへの高額支払いは業種申告との不整合があります。換金性の高い商品取引の疑いもあり、追加審査または拒否が妥当です。",
+          "options": [
+            { "text": "業種申告との不整合を確認のうえ追加審査または拒否", "isCorrect": true, "order": 1 },
+            { "text": "金額が大きいので特別割引を提示して承認", "isCorrect": false, "order": 2 },
+            { "text": "中古車は合法なので問題なく承認", "isCorrect": false, "order": 3 },
+            { "text": "利用者に説明を求めず即時承認", "isCorrect": false, "order": 4 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "l3-operations",
+      "title": "Level 3: 実務・システム",
+      "order": 3,
+      "quizzes": [
+        {
+          "id": "bpsp-l3-q01",
+          "type": "SINGLE",
+          "question": "カード決済の「オーソリゼーション（オーソリ）」の説明として正しいのはどれか？",
+          "explanation": "オーソリは加盟店からイシュアへリアルタイムで行う信用照会です。数秒で承認または否認の結果が返り、カードの有効性・利用可能枠を確認します。",
+          "options": [
+            { "text": "加盟店からイシュアへのリアルタイム信用照会", "isCorrect": true, "order": 1 },
+            { "text": "アクワイアラから加盟店への入金処理", "isCorrect": false, "order": 2 },
+            { "text": "カード番号を別の文字列に置き換える処理", "isCorrect": false, "order": 3 },
+            { "text": "月次の売上確定・請求処理", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q02",
+          "type": "SINGLE",
+          "question": "「クリアリング」と「セツルメント」の違いとして正しいのはどれか？",
+          "explanation": "クリアリングは売上金額の確定と売上請求のフロー、セツルメントは実際の資金移動（アクワイアラ→加盟店への入金）です。",
+          "options": [
+            { "text": "クリアリングは売上処理、セツルメントは実際の資金清算", "isCorrect": true, "order": 1 },
+            { "text": "クリアリングは資金清算、セツルメントは売上処理", "isCorrect": false, "order": 2 },
+            { "text": "どちらも同じ処理で呼び名が違うだけ", "isCorrect": false, "order": 3 },
+            { "text": "クリアリングはBPSP、セツルメントはアクワイアラが行う", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q03",
+          "type": "SINGLE",
+          "question": "PCI DSSとは何か？",
+          "explanation": "Payment Card Industry Data Security Standardの略。カード会員データを取り扱うすべての事業者に求められる国際セキュリティ基準で、6目標・12要件・約400の管理項目で構成されます。",
+          "options": [
+            { "text": "カード会員データを取り扱う事業者向けの国際セキュリティ基準", "isCorrect": true, "order": 1 },
+            { "text": "割賦販売法の施行細則", "isCorrect": false, "order": 2 },
+            { "text": "銀行API接続のための技術標準", "isCorrect": false, "order": 3 },
+            { "text": "AML/KYCの国際基準", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q04",
+          "type": "SINGLE",
+          "question": "ダッシュボードに「未消込売掛金12件、合計4,580,000円」と表示されている。最も可能性が高い原因はどれか？",
+          "explanation": "入金消込の最大の課題は振込人名義の不一致です。グループ会社名義・代表者個人名・略称での振込が最多ケースで、銀行APIの障害や倒産は相対的にレアです。",
+          "options": [
+            { "text": "振込人名義が請求先企業名と異なる", "isCorrect": true, "order": 1 },
+            { "text": "銀行APIの接続障害", "isCorrect": false, "order": 2 },
+            { "text": "取引先の倒産", "isCorrect": false, "order": 3 },
+            { "text": "PCI DSS監査の不適合", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q05",
+          "type": "SINGLE",
+          "question": "BPSPにおいて加盟店審査が重要な理由として正しいのはどれか？",
+          "explanation": "BPSPは疑似加盟店としてアクワイアラと契約を結ぶため、BPSP自身の審査だけでなく、BPSPが受け付けるバイヤー・サプライヤーの審査責任も負います。",
+          "options": [
+            { "text": "BPSPがバイヤー・サプライヤー双方の審査責任を負うため", "isCorrect": true, "order": 1 },
+            { "text": "国際ブランドのライセンス取得に必要なため", "isCorrect": false, "order": 2 },
+            { "text": "法律で加盟店審査が義務付けられているため", "isCorrect": false, "order": 3 },
+            { "text": "審査によって手数料率が変わるため", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q06",
+          "type": "SINGLE",
+          "question": "BPSP事業者自身のキャッシュフロー管理で特に重要な課題はどれか？",
+          "explanation": "BPSP事業者はサプライヤーへの立替払いと、カード会社からの回収の間にタイムラグが生じます。GMV拡大には自社の運転資金確保が前提となります。",
+          "options": [
+            { "text": "立替払いとカード会社からの回収のタイムラグを自社資金で補う必要がある", "isCorrect": true, "order": 1 },
+            { "text": "サプライヤーへの振込手数料が高額になる", "isCorrect": false, "order": 2 },
+            { "text": "為替リスクの管理が必要になる", "isCorrect": false, "order": 3 },
+            { "text": "銀行融資の審査に毎月通る必要がある", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q07",
+          "type": "SINGLE",
+          "question": "「電子決済等代行業者」の登録が必要になるのはどのような場合か？",
+          "explanation": "2018年の改正銀行法で、銀行APIを利用して入出金明細の取得や振込指図を行うサービスを提供する場合、電子決済等代行業者の登録が必要とされました。",
+          "options": [
+            { "text": "銀行APIを利用して明細取得・振込指図サービスを提供する場合", "isCorrect": true, "order": 1 },
+            { "text": "資金移動業の登録をせずに送金する場合", "isCorrect": false, "order": 2 },
+            { "text": "PCI DSS認定を取得していない場合", "isCorrect": false, "order": 3 },
+            { "text": "月間取扱高が10億円を超えた場合", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q08",
+          "type": "SINGLE",
+          "question": "加盟店審査で「特に注意すべき取引」として正しくないのはどれか？",
+          "explanation": "飲食業への通常の事業支払いは一般的に問題ありません。ギャンブル・アダルト・高換金性商品（金券・貴金属）・自己決済が注意すべき取引です。",
+          "options": [
+            { "text": "飲食業への通常の仕入れ代金支払い", "isCorrect": true, "order": 1 },
+            { "text": "自社のカードで自社請求書を支払う自己決済", "isCorrect": false, "order": 2 },
+            { "text": "金券・ブランド品など換金性の高い商品取引", "isCorrect": false, "order": 3 },
+            { "text": "ギャンブル関連事業者への支払い", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q09",
+          "type": "SINGLE",
+          "question": "トークン化（Tokenization）の説明として正しいのはどれか？",
+          "explanation": "トークン化はカード番号を別の文字列（トークン）に置き換える技術です。PCI DSS対応の文脈でカード情報の漏洩リスクを最小化するために用います。",
+          "options": [
+            { "text": "カード番号を別の文字列に置き換えてセキュリティを高める技術", "isCorrect": true, "order": 1 },
+            { "text": "暗号資産（仮想通貨）をカード決済に使う技術", "isCorrect": false, "order": 2 },
+            { "text": "カード情報を分割して複数サーバーに分散する技術", "isCorrect": false, "order": 3 },
+            { "text": "QRコードでカード情報を読み取る技術", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q10",
+          "type": "SINGLE",
+          "question": "チャージバックとは何か？",
+          "explanation": "チャージバックはカード利用者からの異議申立に基づき、加盟店への支払いを取り消す手続きです。BPSPが疑似加盟店として契約している場合、チャージバックリスクもBPSPが負います。",
+          "options": [
+            { "text": "カード利用者の異議申立による加盟店への支払取消", "isCorrect": true, "order": 1 },
+            { "text": "カード会社がバイヤーに手数料を返金する手続き", "isCorrect": false, "order": 2 },
+            { "text": "サプライヤーへの立替金を回収する手続き", "isCorrect": false, "order": 3 },
+            { "text": "カード限度額を一時的に引き上げる申請", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q11",
+          "type": "SINGLE",
+          "question": "インターチェンジフィーとは何か？",
+          "explanation": "インターチェンジフィーはアクワイアラがイシュアに支払う手数料です。カード決済コストの大部分を占め、BPSPの手数料設計にも影響します。",
+          "options": [
+            { "text": "アクワイアラがイシュアに支払う手数料", "isCorrect": true, "order": 1 },
+            { "text": "バイヤーがBPSP事業者に支払う利用手数料", "isCorrect": false, "order": 2 },
+            { "text": "国際ブランドがアクワイアラに課すブランド手数料", "isCorrect": false, "order": 3 },
+            { "text": "銀行がBPSP事業者に課す振込手数料", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l3-q12",
+          "type": "SINGLE",
+          "question": "バイヤー視点でのキャッシュフロー改善効果として正しいのはどれか？",
+          "explanation": "通常の銀行振込では支払期日に即時資金流出しますが、BPSP利用時はBPSPが立替→カード締め日→カード支払日まで最大60日後に資金流出します。これがキャッシュアウトの後ろ倒し効果です。",
+          "options": [
+            { "text": "カード支払日まで最大60日程度、キャッシュアウトを先送りできる", "isCorrect": true, "order": 1 },
+            { "text": "サプライヤーへの支払いが永続的に不要になる", "isCorrect": false, "order": 2 },
+            { "text": "振込手数料がゼロになる", "isCorrect": false, "order": 3 },
+            { "text": "銀行借入の返済スケジュールが自動延長される", "isCorrect": false, "order": 4 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "l4-sales",
+      "title": "Level 4: 営業・提案",
+      "order": 4,
+      "quizzes": [
+        {
+          "id": "bpsp-l4-q01",
+          "type": "SCENARIO",
+          "question": "CFOから「銀行借入で十分回せているし、3%の手数料を払う意味がわからない」と言われた。最も効果的な返しはどれか？",
+          "explanation": "CFOには資金繰りより業務効率化の定量試算が刺さります。月間振込件数×処理工数で経理コスト削減を示す訴求が最も有効。ポイント還元の話はCFOには弱い傾向があります。",
+          "options": [
+            { "text": "月間振込件数から経理業務の工数削減コストを定量試算して提示する", "isCorrect": true, "order": 1 },
+            { "text": "ポイント還元で実質1.5%程度になると伝える", "isCorrect": false, "order": 2 },
+            { "text": "「では改めてご提案します」と席を外す", "isCorrect": false, "order": 3 },
+            { "text": "競合他社の導入事例を挙げてプレッシャーをかける", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q02",
+          "type": "SCENARIO",
+          "question": "購買部長から「取引先（サプライヤー）に迷惑がかかりそうで心配」と言われた。どう答えるべきか？",
+          "explanation": "サプライヤーは通常の銀行振込として着金し、振込名義も指定可能なため商習慣が変わりません。この点を明確に伝えることで購買部長の懸念を解消できます。",
+          "options": [
+            { "text": "サプライヤーには通常の銀行振込として着金し、振込名義も指定できると伝える", "isCorrect": true, "order": 1 },
+            { "text": "サプライヤーにも手数料メリットがあると伝える", "isCorrect": false, "order": 2 },
+            { "text": "迷惑をかけることもあるが許容範囲と伝える", "isCorrect": false, "order": 3 },
+            { "text": "サプライヤーへの影響は後で調べると伝える", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q03",
+          "type": "SCENARIO",
+          "question": "経理担当者から「経理処理が複雑になりませんか？」と聞かれた。最も適切な回答はどれか？",
+          "explanation": "既存の会計システムとのAPI連携、電子帳簿保存法・インボイス制度への対応が可能であることを伝えると、経理担当者には有効です。",
+          "options": [
+            { "text": "既存会計システムとのAPI連携と電子帳簿保存法対応のしやすさを説明する", "isCorrect": true, "order": 1 },
+            { "text": "複雑になるが慣れれば大丈夫と伝える", "isCorrect": false, "order": 2 },
+            { "text": "経理処理はサポートが全部やると伝える", "isCorrect": false, "order": 3 },
+            { "text": "経理担当者には判断権限がないので後でCFOに話すと伝える", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q04",
+          "type": "SINGLE",
+          "question": "BPSPのROI訴求の基本構造として正しいのはどれか？",
+          "explanation": "「カード手数料コスト < 資金繰り改善メリット + ポイント還元 + 業務効率化」という等式が成立するかを顧客の実数値で試算することがROI訴求の核心です。",
+          "options": [
+            { "text": "手数料コスト＜資金繰り改善+ポイント還元+業務効率化の合計", "isCorrect": true, "order": 1 },
+            { "text": "手数料が安いことだけを訴求する", "isCorrect": false, "order": 2 },
+            { "text": "導入企業数の多さをアピールする", "isCorrect": false, "order": 3 },
+            { "text": "法的義務なので導入は不可避と伝える", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q05",
+          "type": "SINGLE",
+          "question": "BPSPのBtoBセールスで「社内チャンピオン」を育てることが重要な理由はどれか？",
+          "explanation": "BtoB商材は複数の意思決定者が関わります。顧客企業内でBPSP導入を推進してくれるキーパーソン（チャンピオン）を育てることで、社内稟議を内側から動かせるようになります。",
+          "options": [
+            { "text": "顧客企業内から社内稟議を内側から動かしてもらえるため", "isCorrect": true, "order": 1 },
+            { "text": "チャンピオンに成果報酬を払って紹介してもらうため", "isCorrect": false, "order": 2 },
+            { "text": "チャンピオンが他社顧客を紹介してくれるため", "isCorrect": false, "order": 3 },
+            { "text": "チャンピオンが価格交渉をやめさせてくれるため", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q06",
+          "type": "SINGLE",
+          "question": "「ファクタリングとの違いは何か？」と聞かれた場合の正しい説明はどれか？",
+          "explanation": "ファクタリングは売り手が売掛債権を譲渡して早期資金化する仕組み（売り手向け）。BPSPはバイヤーが支払いを繰り延べる仕組み（買い手向け）。資金繰り改善の方向が逆です。",
+          "options": [
+            { "text": "ファクタリングは売り手向け、BPSPは買い手向けで資金繰り改善の方向が逆", "isCorrect": true, "order": 1 },
+            { "text": "ファクタリングよりBPSPの手数料が高い", "isCorrect": false, "order": 2 },
+            { "text": "ファクタリングはカード決済、BPSPは銀行振込", "isCorrect": false, "order": 3 },
+            { "text": "ファクタリングは違法だがBPSPは合法", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q07",
+          "type": "SINGLE",
+          "question": "財務余力のある大企業に対してBPSPを提案する際、資金繰り改善以外で最も有効な訴求軸はどれか？",
+          "explanation": "財務余力がある企業には「資金繰り改善」は刺さりません。購買・経理業務の工数削減、電子帳簿保存法・インボイス制度対応の効率化など、業務DXの観点からのアプローチが有効です。",
+          "options": [
+            { "text": "購買・経理業務のDXと業務効率化", "isCorrect": true, "order": 1 },
+            { "text": "資金繰り改善による倒産リスクの回避", "isCorrect": false, "order": 2 },
+            { "text": "銀行融資の代替手段として位置付ける", "isCorrect": false, "order": 3 },
+            { "text": "競合他社が全社導入しているというプレッシャー", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q08",
+          "type": "SINGLE",
+          "question": "BPSPの2軸ビジネスモデルで、バイヤー獲得と並ぶもう一方の重要な軸はどれか？",
+          "explanation": "BPSPはバイヤー獲得だけでなく、アクワイアラ・パートナー（会計SaaS・ERPなど）の獲得が必要です。両軸が揃ってビジネスが成立します。",
+          "options": [
+            { "text": "アクワイアラ・パートナーの獲得", "isCorrect": true, "order": 1 },
+            { "text": "サプライヤーへの直接営業", "isCorrect": false, "order": 2 },
+            { "text": "国際ブランドのライセンス取得", "isCorrect": false, "order": 3 },
+            { "text": "銀行との資本提携", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q09",
+          "type": "SCENARIO",
+          "question": "情報システム部門から「セキュリティが心配」と言われた。最も適切な回答はどれか？",
+          "explanation": "情シス担当者にはPCI DSS準拠・クレジットカードセキュリティガイドライン遵守・トークン化といった具体的なセキュリティ基準を示すことが有効です。",
+          "options": [
+            { "text": "PCI DSS準拠・セキュリティガイドライン遵守・トークン化の実装を具体的に説明する", "isCorrect": true, "order": 1 },
+            { "text": "「安全なので大丈夫です」と断言する", "isCorrect": false, "order": 2 },
+            { "text": "「セキュリティは各社の問題です」と伝える", "isCorrect": false, "order": 3 },
+            { "text": "「情シス担当者に判断権限はない」と伝える", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q10",
+          "type": "SINGLE",
+          "question": "稟議支援として営業担当が先回りして提供すべき情報として最も適切なのはどれか？",
+          "explanation": "稟議プロセスで不足して差し戻しになるのを防ぐため、導入効果・セキュリティ証跡・費用対効果を揃えて先回り提供することが受注率向上に直結します。",
+          "options": [
+            { "text": "導入効果・セキュリティ証跡・費用対効果のドキュメント一式", "isCorrect": true, "order": 1 },
+            { "text": "競合他社の批判資料", "isCorrect": false, "order": 2 },
+            { "text": "BPSP事業者の株主情報", "isCorrect": false, "order": 3 },
+            { "text": "担当者個人へのギフト", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q11",
+          "type": "SINGLE",
+          "question": "「貸金業に該当しないのか？」という懸念に対する正しい説明はどれか？",
+          "explanation": "金融庁が2025年4月に公表したQ&Aに基づき、立替期間・手数料体系・与信運用の設計で適法性を確保していることを説明します。",
+          "options": [
+            { "text": "金融庁Q&A（2025年4月）に基づき、設計で適法性を確保していると説明する", "isCorrect": true, "order": 1 },
+            { "text": "「法律の問題なので弁護士に聞いてください」と言う", "isCorrect": false, "order": 2 },
+            { "text": "「貸金業には該当しないと断言できる」と言う", "isCorrect": false, "order": 3 },
+            { "text": "「貸金業でも問題ない」と言う", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l4-q12",
+          "type": "SINGLE",
+          "question": "資金繰り改善訴求がCFOに刺さりやすい企業の特徴はどれか？",
+          "explanation": "資金繰り改善の訴求は、実際に資金繰りに課題がある中小企業や成長期の企業に有効です。財務余力がある大企業には別の訴求軸が必要です。",
+          "options": [
+            { "text": "資金繰りに課題を抱える中小企業や成長期の企業", "isCorrect": true, "order": 1 },
+            { "text": "現金残高が潤沢な大企業", "isCorrect": false, "order": 2 },
+            { "text": "IT投資を全面禁止している企業", "isCorrect": false, "order": 3 },
+            { "text": "すでに他BPSPを導入済みの企業", "isCorrect": false, "order": 4 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "l5-bizdev",
+      "title": "Level 5: BizDev・戦略",
+      "order": 5,
+      "quizzes": [
+        {
+          "id": "bpsp-l5-q01",
+          "type": "SINGLE",
+          "question": "Embedded Finance（組込型金融）の3者構造として正しい組み合わせはどれか？",
+          "explanation": "Brand（ユーザーへのサービス提供者）・License Holder（金融ライセンス保有者）・Enabler（両者をAPIでつなぐ事業者）の3者で構成されます。",
+          "options": [
+            { "text": "Brand・License Holder・Enabler", "isCorrect": true, "order": 1 },
+            { "text": "バイヤー・サプライヤー・アクワイアラ", "isCorrect": false, "order": 2 },
+            { "text": "イシュア・アクワイアラ・国際ブランド", "isCorrect": false, "order": 3 },
+            { "text": "BPSP事業者・銀行・カード会社", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q02",
+          "type": "SINGLE",
+          "question": "LTV/CAC比の「健全とされる目安」として業界で一般的に言われるのはどれか？",
+          "explanation": "LTV/CAC比は3以上が健全とされる目安です。フィンテックでは5:1、SaaSでは3:1が業界目安として使われます。",
+          "options": [
+            { "text": "3以上（フィンテックは5:1が目安）", "isCorrect": true, "order": 1 },
+            { "text": "1以上であれば合格", "isCorrect": false, "order": 2 },
+            { "text": "10以上でないと成立しない", "isCorrect": false, "order": 3 },
+            { "text": "業種によって定義がないため目安は存在しない", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q03",
+          "type": "SINGLE",
+          "question": "BPSPのLTV計算式として最も適切なのはどれか？",
+          "explanation": "BPSPのLTVは「1社あたり年間GMV × テイクレート × 想定継続年数」で計算します。例：年間GMV1,200万円 × 3% × 5年 = 180万円。",
+          "options": [
+            { "text": "年間GMV × テイクレート × 想定継続年数", "isCorrect": true, "order": 1 },
+            { "text": "月間売上 × 12ヶ月", "isCorrect": false, "order": 2 },
+            { "text": "総売上 ÷ 顧客数", "isCorrect": false, "order": 3 },
+            { "text": "CAC ÷ チャーンレート", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q04",
+          "type": "SINGLE",
+          "question": "BaaSとEmbedded Financeの関係として正しいのはどれか？",
+          "explanation": "BaaSはLicense Holder（銀行等）が自社の金融機能をAPIで外部提供する形態。Embedded FinanceはBrand（非金融事業者）がその機能を活用してサービスに組み込む形態。表裏一体の関係です。",
+          "options": [
+            { "text": "BaaSはLicense Holder側の提供形態、Embedded FinanceはBrand側の活用形態", "isCorrect": true, "order": 1 },
+            { "text": "BaaSとEmbedded Financeは全く同じ概念", "isCorrect": false, "order": 2 },
+            { "text": "Embedded FinanceはBaaSの古い呼び方", "isCorrect": false, "order": 3 },
+            { "text": "BaaSは日本固有の概念でEmbedded Financeは海外概念", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q05",
+          "type": "SINGLE",
+          "question": "GMV（Gross Merchandise Value）とは何か？",
+          "explanation": "GMVは取扱高・流通総額のことで、BPSPビジネスの規模を表す主要指標です。Take Rate（テイクレート）を掛けることで実際の売上が算出されます。",
+          "options": [
+            { "text": "プラットフォームを通じた取扱高（流通総額）", "isCorrect": true, "order": 1 },
+            { "text": "営業利益額", "isCorrect": false, "order": 2 },
+            { "text": "顧客数 × 平均客単価", "isCorrect": false, "order": 3 },
+            { "text": "月間アクティブユーザー数", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q06",
+          "type": "SCENARIO",
+          "question": "現在LTV/CAC比が2.1倍。3倍以上に改善するためのアプローチとして最も「筋がよい」のはどれか？",
+          "explanation": "LTV/CAC改善にはLTVを上げるかCACを下げるかの2方向があります。チャーンレート改善による継続年数延長はLTVに直結し、既存顧客深耕なのでCAC追加もありません。最も費用対効果が高い施策です。",
+          "options": [
+            { "text": "チャーン改善により顧客継続年数を延ばす", "isCorrect": true, "order": 1 },
+            { "text": "テイクレートを値上げしてLTVを増やす", "isCorrect": false, "order": 2 },
+            { "text": "広告費を2倍にしてCAC効率を高める", "isCorrect": false, "order": 3 },
+            { "text": "取扱高の上限を下げてリスクを減らす", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q07",
+          "type": "SINGLE",
+          "question": "2025年時点の日本国内キャッシュレス決済比率として正しいのはどれか（新指標）？",
+          "explanation": "経済産業省の発表（2026年3月31日）によると、2025年のキャッシュレス決済比率は新指標で58.0%、決済額は162.7兆円です。",
+          "options": [
+            { "text": "58.0%（決済額162.7兆円）", "isCorrect": true, "order": 1 },
+            { "text": "40.0%", "isCorrect": false, "order": 2 },
+            { "text": "80.0%（政府目標達成済）", "isCorrect": false, "order": 3 },
+            { "text": "25.0%", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q08",
+          "type": "SINGLE",
+          "question": "BPSP事業のコストモデルに含まれない項目はどれか？",
+          "explanation": "インターチェンジフィー・国際ブランド手数料・与信ロス・加盟店審査コスト・PCI DSS対応コストが主要コスト項目。法人税は事業コストではなく税務上の概念です。",
+          "options": [
+            { "text": "法人税（事業コストとして管理するものではない）", "isCorrect": true, "order": 1 },
+            { "text": "インターチェンジフィー", "isCorrect": false, "order": 2 },
+            { "text": "与信ロス（不正利用・チャージバック・倒産）", "isCorrect": false, "order": 3 },
+            { "text": "加盟店審査・KYCコスト", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q09",
+          "type": "SINGLE",
+          "question": "Embedded Finance型BPSPの将来成長領域として期待されるのはどれか？",
+          "explanation": "会計SaaS・請求書SaaS・ERPにBPSP機能を組み込む業界特化型（建設業・医療業・フリーランス向け等）のEmbedded Finance型が次の成長領域とされています。",
+          "options": [
+            { "text": "業界特化型SaaS・ERPへのBPSP機能組み込み", "isCorrect": true, "order": 1 },
+            { "text": "個人向けQRコード決済との統合", "isCorrect": false, "order": 2 },
+            { "text": "仮想通貨決済への移行", "isCorrect": false, "order": 3 },
+            { "text": "ATM経由の現金引き出し対応", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q10",
+          "type": "SINGLE",
+          "question": "Payback Period（投資回収期間）とは何か？また業界中央値はどのくらいか？",
+          "explanation": "Payback PeriodはCACを月次粗利で割った値で、投資回収にかかる月数を示します。業界中央値は12ヶ月以内とされています。",
+          "options": [
+            { "text": "CACを月次粗利で割った値。業界中央値は12ヶ月以内", "isCorrect": true, "order": 1 },
+            { "text": "LTVをCACで割った値。業界目安は3ヶ月", "isCorrect": false, "order": 2 },
+            { "text": "売上を顧客数で割った値。基準は業種による", "isCorrect": false, "order": 3 },
+            { "text": "解約率を顧客数で割った値。業界目安は5%以下", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q11",
+          "type": "SCENARIO",
+          "question": "年間GMV50億円・テイクレート2.8%の事業計画。マーケ投資を年間2億円に増やすか、加盟店審査体制を強化するか、優先すべきはどちらか？",
+          "explanation": "GMV50億円・テイクレート2.8%の段階では与信ロスやチャージバックによる損失リスクが大きく、審査体制の穴は取扱高拡大とともに損失が拡大します。先に審査体制を固めてからマーケ投資が基本です。",
+          "options": [
+            { "text": "加盟店審査体制の強化を先に行う", "isCorrect": true, "order": 1 },
+            { "text": "マーケ投資を増やして取扱高を先に伸ばす", "isCorrect": false, "order": 2 },
+            { "text": "どちらも同時に実施すべきで優先度はない", "isCorrect": false, "order": 3 },
+            { "text": "テイクレートを下げて顧客獲得を優先する", "isCorrect": false, "order": 4 }
+          ]
+        },
+        {
+          "id": "bpsp-l5-q12",
+          "type": "SINGLE",
+          "question": "BPSPのアライアンス戦略として「会計SaaSとの連携」が重要な理由はどれか？",
+          "explanation": "会計SaaSとのAPI連携によりEmbedded Finance化が実現します。会計ソフト内で請求書管理→カード決済→自動仕訳まで完結することで、ユーザーのサービス離脱率が大幅に下がります。",
+          "options": [
+            { "text": "会計ソフト内で請求書管理〜決済〜仕訳まで完結しユーザー離脱率が下がるため", "isCorrect": true, "order": 1 },
+            { "text": "会計SaaSの顧客リストを無料で取得できるため", "isCorrect": false, "order": 2 },
+            { "text": "会計SaaS企業がBPSPの保証人になってくれるため", "isCorrect": false, "order": 3 },
+            { "text": "会計SaaSとの連携で貸金業登録が不要になるため", "isCorrect": false, "order": 4 }
+          ]
+        }
+      ]
+    }
+  ]
+}
