@@ -89,7 +89,8 @@
       "phase": "1",
       "agent": "game-level",
       "feature_requirement_ids": ["F009"],
-      "screens": ["S006", "S007", "S008", "S009"]
+      "screens": ["S006", "S007", "S008", "S009"],
+      "note": "専門家レビュー不要の方針変更によりBLOCKED解除。quiz_seed.jsonのシード投入をもってCOMPLETE。"
     },
     {
       "id": "F010",
@@ -99,7 +100,8 @@
       "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
-      "feature_requirement_ids": ["F010"]
+      "feature_requirement_ids": ["F010"],
+      "note": "専門家レビュー不要の方針変更によりBLOCKED解除。quiz_seed.jsonのシード投入をもってCOMPLETE。"
     },
     {
       "id": "F011",
@@ -109,7 +111,8 @@
       "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
-      "feature_requirement_ids": ["F011"]
+      "feature_requirement_ids": ["F011"],
+      "note": "専門家レビュー不要の方針変更によりBLOCKED解除。quiz_seed.jsonのシード投入をもってCOMPLETE。"
     },
     {
       "id": "F012",
@@ -119,7 +122,8 @@
       "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
-      "feature_requirement_ids": ["F012"]
+      "feature_requirement_ids": ["F012"],
+      "note": "専門家レビュー不要の方針変更によりBLOCKED解除。quiz_seed.jsonのシード投入をもってCOMPLETE。"
     },
     {
       "id": "F013",
@@ -129,7 +133,8 @@
       "status": "COMPLETE",
       "phase": "1",
       "agent": "game-level",
-      "feature_requirement_ids": ["F013"]
+      "feature_requirement_ids": ["F013"],
+      "note": "専門家レビュー不要の方針変更によりBLOCKED解除。quiz_seed.jsonのシード投入をもってCOMPLETE。"
     },
     {
       "id": "F014",
@@ -162,6 +167,26 @@
       "agent": "admin",
       "feature_requirement_ids": ["F016"],
       "screens": ["S013"]
+    },
+    {
+      "id": "F017",
+      "title": "コンテンツ構造拡張（Course/Module/Unit 3層モデル）",
+      "description": "Prismaスキーマ変更・クイズシード投入・座学会話形式化・ランダム出題対応の一連の変更",
+      "priority": "Must",
+      "status": "COMPLETE",
+      "phase": "1.1",
+      "agent": "game-level",
+      "feature_requirement_ids": []
+    },
+    {
+      "id": "F018",
+      "title": "ナビゲーション改善（戻るボタン・パンくず・グローバルメニュー）",
+      "description": "全画面に戻るボタン・パンくず・グローバルナビを追加。agents/_shell/のレイアウト変更。",
+      "priority": "Must",
+      "status": "READY",
+      "phase": "1.1",
+      "agent": "_shell",
+      "feature_requirement_ids": []
     }
   ],
   "status_definitions": {
