@@ -59,7 +59,7 @@ export default function ConversationViewer({ levelNumber, title, script }: Conve
   const isLast = current === total - 1
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col" style={{ minHeight: 'calc(100vh - 4rem)' }}>
+    <div className="mx-auto max-w-2xl">
       {/* ヘッダー */}
       <div className="mb-4 flex items-center justify-between">
         <div>
@@ -74,15 +74,15 @@ export default function ConversationViewer({ levelNumber, title, script }: Conve
       </div>
 
       {/* プログレスバー */}
-      <div className="mb-4 h-1 rounded-full bg-muted">
+      <div className="mb-6 h-1 rounded-full bg-muted">
         <div
           className="h-full rounded-full bg-primary transition-all"
           style={{ width: `${((current + 1) / total) * 100}%` }}
         />
       </div>
 
-      {/* 会話エリア */}
-      <div className="flex-1 overflow-y-auto space-y-4 pb-4">
+      {/* 会話エリア（自然に伸びる） */}
+      <div className="space-y-4 pb-6">
         {visibleTurns.map((turn) => (
           <div
             key={turn.turn}
@@ -110,8 +110,8 @@ export default function ConversationViewer({ levelNumber, title, script }: Conve
         <div ref={bottomRef} />
       </div>
 
-      {/* ナビゲーション */}
-      <div className="mt-4 flex items-center justify-between gap-4 border-t pt-4">
+      {/* ナビゲーション（ページ末尾固定） */}
+      <div className="sticky bottom-0 flex items-center justify-between gap-4 border-t bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <button
           onClick={() => setCurrent((c) => Math.max(c - 1, 0))}
           disabled={current === 0}
