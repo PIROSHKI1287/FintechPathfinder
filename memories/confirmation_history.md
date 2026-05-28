@@ -15,6 +15,19 @@
 
 ---
 
+## 2026-05-28 — F017 コンテンツ構造拡張 E2E確認
+
+- 承認者: 人間（piroshki0926@gmail.com）
+- 操作: TASK-A〜E（Prismaスキーマリファクタ・クイズシード・会話形式UI・ランダム出題・feature_list更新）を指示
+- 結果: 承認（「EtoE」コマンドでE2E確認を指示）
+- 備考: |
+    - Migration 20260528002742_content_structure_refactor を Railway DB に適用済み
+    - 1 Course / 5 Modules / 60 Quizzes (isPublished=true) / 240 QuizOptions シード済み
+    - Next.js build PASS、tsc --noEmit 0 errors
+    - feature/content-structure-refactor ブランチを push 済み
+
+---
+
 ## 2026-05-27 — content-001 F009–F013 コンテンツシード Railway DB適用
 
 - 承認者: 人間（piroshki0926@gmail.com）

@@ -1,0 +1,61 @@
+{
+  "task_id": "F017",
+  "title": "コンテンツ構造拡張（Course/Module/Unit 3層モデル）",
+  "completed_at": "2026-05-28",
+  "used_model": "claude-sonnet-4-6",
+  "branch": "feature/content-structure-refactor",
+  "sub_tasks": {
+    "TASK_A": {
+      "title": "Prismaスキーマ変更 & マイグレーション",
+      "status": "COMPLETE",
+      "migration": "20260528002742_content_structure_refactor",
+      "strategy": "@@map/@map でテーブル/カラム名を維持してゼロデータロス",
+      "files_changed": 16,
+      "type_errors": 0
+    },
+    "TASK_B": {
+      "title": "クイズシードデータ投入",
+      "status": "COMPLETE",
+      "seed_script": "prisma/seed/seed-bpsp-quiz.ts",
+      "results": {
+        "courses": 1,
+        "modules": 5,
+        "quizzes": 60,
+        "quiz_options": 240,
+        "is_published_true": 60
+      }
+    },
+    "TASK_C": {
+      "title": "座学UIの会話形式化",
+      "status": "COMPLETE",
+      "new_files": [
+        "agents/game-level/ui/ConversationViewer.tsx",
+        "agents/game-level/logic/script.ts"
+      ],
+      "fallback": "既存StoryViewerはUnit.scriptがない場合のフォールバックとして維持"
+    },
+    "TASK_D": {
+      "title": "クイズエンジンのランダム出題対応",
+      "status": "COMPLETE",
+      "algorithm": "Fisher-Yates shuffle",
+      "scope": "質問順序 + 選択肢順序をサーバーサイドで毎セッションシャッフル",
+      "security": "isCorrectはクライアントに返さない設計を維持"
+    },
+    "TASK_E": {
+      "title": "feature_list.json更新",
+      "status": "COMPLETE",
+      "changes": "F009-F013にnote追加、F017/F018を新規追加"
+    }
+  },
+  "verification": {
+    "type_check": "PASS (0 errors)",
+    "build": "PASS",
+    "db_counts": {
+      "Course": 1,
+      "Module": 5,
+      "Quiz_total": 77,
+      "Quiz_published": 60,
+      "QuizOption": 291
+    }
+  }
+}
