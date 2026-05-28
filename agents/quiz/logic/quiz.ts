@@ -21,6 +21,15 @@ export interface QuizSetup {
   questions: QuizQuestion[]
 }
 
+function shuffle<T>(array: T[]): T[] {
+  const arr = [...array]
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
+}
+
 export async function getQuizSetup(
   userId: string,
   levelNumber: number,
@@ -62,5 +71,7 @@ export async function getQuestionsForLevel(levelId: string): Promise<QuizQuestio
       },
     },
   })
-  return rows
+
+  // Fisher-Yates shuffle: both question order and options within each question
+  return shuffle(rows).map((q) => ({ ...q, options: shuffle(q.options) }))
 }
