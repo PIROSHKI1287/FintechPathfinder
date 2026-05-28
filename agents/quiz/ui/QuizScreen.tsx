@@ -6,15 +6,15 @@ import ParameterGauges from './ParameterGauges'
 
 interface Choice {
   id: string
-  choiceText: string
+  text: string
 }
 
 interface Question {
   id: string
-  questionText: string
+  question: string
   type: string
   sortOrder: number
-  choices: Choice[]
+  options: Choice[]
 }
 
 interface Params {
@@ -157,7 +157,7 @@ export default function QuizScreen({
 
       {/* 問題文 */}
       <div className="rounded-xl border bg-card p-6 shadow-sm">
-        <p className="text-base font-medium leading-relaxed">{currentQuestion?.questionText}</p>
+        <p className="text-base font-medium leading-relaxed">{currentQuestion?.question}</p>
       </div>
 
       {error && (
@@ -167,14 +167,14 @@ export default function QuizScreen({
       {/* 選択肢 */}
       {phase === 'answering' && (
         <div className="space-y-3">
-          {currentQuestion?.choices.map((choice) => (
+          {currentQuestion?.options.map((choice) => (
             <button
               key={choice.id}
               onClick={() => handleChoiceSelect(choice.id)}
               disabled={loading}
               className="w-full rounded-xl border bg-card px-5 py-4 text-left text-sm hover:border-primary hover:bg-primary/5 transition-colors disabled:opacity-50"
             >
-              {choice.choiceText}
+              {choice.text}
             </button>
           ))}
           {loading && (

@@ -22,19 +22,19 @@ export async function processAnswer(
   levelId: string,
 ): Promise<AnswerResult | { error: string; status: number }> {
   // 問題がこのレベルに属するか検証
-  const question = await prisma.quizQuestion.findUnique({
+  const question = await prisma.quiz.findUnique({
     where: { id: questionId },
-    select: { levelId: true },
+    select: { moduleId: true },
   })
-  if (!question || question.levelId !== levelId) {
+  if (!question || question.moduleId !== levelId) {
     return { error: '問題が見つかりません', status: 404 }
   }
 
   // 選択肢がこの問題に属するか検証（isCorrect・deltas を取得）
-  const choice = await prisma.quizChoice.findUnique({
+  const choice = await prisma.quizOption.findUnique({
     where: { id: chosenChoiceId },
     select: {
-      questionId: true,
+      quizId: true,
       isCorrect: true,
       feedbackText: true,
       complianceDelta: true,
@@ -42,7 +42,7 @@ export async function processAnswer(
       uxDelta: true,
     },
   })
-  if (!choice || choice.questionId !== questionId) {
+  if (!choice || choice.quizId !== questionId) {
     return { error: '選択肢が見つかりません', status: 404 }
   }
 
@@ -72,9 +72,9 @@ export async function processAnswer(
   })
 
   // 全問回答チェック
-  const totalCount = await prisma.quizQuestion.count({ where: { levelId } })
+  const totalCount = await prisma.quiz.count({ where: { moduleId: levelId } })
   const answeredRows = await prisma.quizAttempt.findMany({
-    where: { userId, question: { levelId } },
+    where: { userId, question: { moduleId: levelId } },
     select: { questionId: true },
     distinct: ['questionId'],
   })

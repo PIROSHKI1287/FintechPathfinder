@@ -10,15 +10,15 @@ export async function handleGetQuiz(levelId: string): Promise<NextResponse> {
     return NextResponse.json({ error: '認証が必要です' }, { status: 401 })
   }
 
-  const level = await prisma.level.findUnique({
+  const module = await prisma.module.findUnique({
     where: { id: levelId },
     select: { levelNumber: true },
   })
-  if (!level) {
+  if (!module) {
     return NextResponse.json({ error: 'レベルが見つかりません' }, { status: 404 })
   }
 
-  const unlocked = await isLevelUnlockedForUser(session.user.id, level.levelNumber)
+  const unlocked = await isLevelUnlockedForUser(session.user.id, module.levelNumber)
   if (!unlocked) {
     return NextResponse.json({ error: 'このレベルにアクセスする権限がありません' }, { status: 403 })
   }

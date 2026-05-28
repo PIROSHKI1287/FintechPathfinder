@@ -1,7 +1,7 @@
 import { prisma } from '@/core/db/prisma'
 
 export async function listLevels() {
-  return prisma.level.findMany({
+  return prisma.module.findMany({
     orderBy: { levelNumber: 'asc' },
     select: {
       id: true,
@@ -10,7 +10,7 @@ export async function listLevels() {
       description: true,
       isPublished: true,
       sortOrder: true,
-      _count: { select: { storyPages: true, quizQuestions: true } },
+      _count: { select: { storyPages: true, quizzes: true } },
     },
   })
 }
@@ -19,7 +19,7 @@ export async function updateLevel(
   id: string,
   data: { title?: string; description?: string; isPublished?: boolean },
 ) {
-  return prisma.level.update({ where: { id }, data })
+  return prisma.module.update({ where: { id }, data })
 }
 
 export async function listStoryPages(levelId: string) {
@@ -47,10 +47,10 @@ export async function deleteStoryPage(pageId: string) {
 }
 
 export async function listQuizQuestions(levelId: string) {
-  return prisma.quizQuestion.findMany({
-    where: { levelId },
+  return prisma.quiz.findMany({
+    where: { moduleId: levelId },
     orderBy: { sortOrder: 'asc' },
-    include: { choices: { orderBy: { id: 'asc' } } },
+    include: { options: { orderBy: { id: 'asc' } } },
   })
 }
 
@@ -58,9 +58,9 @@ export async function createQuizQuestion(
   levelId: string,
   data: { questionText: string; type: string; sortOrder: number },
 ) {
-  return prisma.quizQuestion.create({
-    data: { levelId, ...data },
-    include: { choices: true },
+  return prisma.quiz.create({
+    data: { moduleId: levelId, question: data.questionText, type: data.type, sortOrder: data.sortOrder },
+    include: { options: true },
   })
 }
 
@@ -68,11 +68,18 @@ export async function updateQuizQuestion(
   id: string,
   data: { questionText?: string; type?: string; sortOrder?: number },
 ) {
-  return prisma.quizQuestion.update({ where: { id }, data })
+  return prisma.quiz.update({
+    where: { id },
+    data: {
+      ...(data.questionText !== undefined && { question: data.questionText }),
+      ...(data.type !== undefined && { type: data.type }),
+      ...(data.sortOrder !== undefined && { sortOrder: data.sortOrder }),
+    },
+  })
 }
 
 export async function deleteQuizQuestion(id: string) {
-  return prisma.quizQuestion.delete({ where: { id } })
+  return prisma.quiz.delete({ where: { id } })
 }
 
 export async function createQuizChoice(
@@ -86,7 +93,17 @@ export async function createQuizChoice(
     feedbackText?: string | null
   },
 ) {
-  return prisma.quizChoice.create({ data: { questionId, ...data } })
+  return prisma.quizOption.create({
+    data: {
+      quizId: questionId,
+      text: data.choiceText,
+      isCorrect: data.isCorrect,
+      complianceDelta: data.complianceDelta,
+      gmvDelta: data.gmvDelta,
+      uxDelta: data.uxDelta,
+      feedbackText: data.feedbackText,
+    },
+  })
 }
 
 export async function updateQuizChoice(
@@ -100,11 +117,21 @@ export async function updateQuizChoice(
     feedbackText?: string | null
   },
 ) {
-  return prisma.quizChoice.update({ where: { id }, data })
+  return prisma.quizOption.update({
+    where: { id },
+    data: {
+      ...(data.choiceText !== undefined && { text: data.choiceText }),
+      ...(data.isCorrect !== undefined && { isCorrect: data.isCorrect }),
+      ...(data.complianceDelta !== undefined && { complianceDelta: data.complianceDelta }),
+      ...(data.gmvDelta !== undefined && { gmvDelta: data.gmvDelta }),
+      ...(data.uxDelta !== undefined && { uxDelta: data.uxDelta }),
+      ...(data.feedbackText !== undefined && { feedbackText: data.feedbackText }),
+    },
+  })
 }
 
 export async function deleteQuizChoice(id: string) {
-  return prisma.quizChoice.delete({ where: { id } })
+  return prisma.quizOption.delete({ where: { id } })
 }
 
 export async function listDictionaryTerms() {

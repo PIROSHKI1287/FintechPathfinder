@@ -19,23 +19,23 @@ export async function getLevelStory(
   userId: string,
   levelNumber: number,
 ): Promise<LevelStory | null> {
-  const level = await prisma.level.findUnique({
+  const module = await prisma.module.findUnique({
     where: { levelNumber },
     include: {
       storyPages: { orderBy: { pageNumber: 'asc' } },
     },
   })
 
-  if (!level) return null
+  if (!module) return null
 
   const unlocked = await isLevelUnlockedForUser(userId, levelNumber)
   if (!unlocked) return null
 
   return {
-    levelId: level.id,
-    levelNumber: level.levelNumber,
-    title: level.title,
-    pages: level.storyPages.map((p) => ({
+    levelId: module.id,
+    levelNumber: module.levelNumber,
+    title: module.title,
+    pages: module.storyPages.map((p) => ({
       id: p.id,
       pageNumber: p.pageNumber,
       contentJson: p.contentJson,
@@ -48,20 +48,20 @@ export async function getLevelStoryById(
   userId: string,
   levelId: string,
 ): Promise<LevelStory | null> {
-  const level = await prisma.level.findUnique({
+  const module = await prisma.module.findUnique({
     where: { id: levelId },
     include: { storyPages: { orderBy: { pageNumber: 'asc' } } },
   })
-  if (!level) return null
+  if (!module) return null
 
-  const unlocked = await isLevelUnlockedForUser(userId, level.levelNumber)
+  const unlocked = await isLevelUnlockedForUser(userId, module.levelNumber)
   if (!unlocked) return null
 
   return {
-    levelId: level.id,
-    levelNumber: level.levelNumber,
-    title: level.title,
-    pages: level.storyPages.map((p) => ({
+    levelId: module.id,
+    levelNumber: module.levelNumber,
+    title: module.title,
+    pages: module.storyPages.map((p) => ({
       id: p.id,
       pageNumber: p.pageNumber,
       contentJson: p.contentJson,

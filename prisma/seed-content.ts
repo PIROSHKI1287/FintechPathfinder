@@ -9,14 +9,14 @@ const prisma = new PrismaClient()
 
 async function main() {
   const [level1, level2, level3, level4, level5] = await Promise.all([
-    prisma.level.findFirstOrThrow({ where: { levelNumber: 1 } }),
-    prisma.level.findFirstOrThrow({ where: { levelNumber: 2 } }),
-    prisma.level.findFirstOrThrow({ where: { levelNumber: 3 } }),
-    prisma.level.findFirstOrThrow({ where: { levelNumber: 4 } }),
-    prisma.level.findFirstOrThrow({ where: { levelNumber: 5 } }),
+    prisma.module.findFirstOrThrow({ where: { levelNumber: 1 } }),
+    prisma.module.findFirstOrThrow({ where: { levelNumber: 2 } }),
+    prisma.module.findFirstOrThrow({ where: { levelNumber: 3 } }),
+    prisma.module.findFirstOrThrow({ where: { levelNumber: 4 } }),
+    prisma.module.findFirstOrThrow({ where: { levelNumber: 5 } }),
   ])
 
-  await prisma.level.updateMany({ data: { isPublished: true } })
+  await prisma.module.updateMany({ data: { isPublished: true } })
   console.log('All levels set to isPublished=true')
 
   // ── Level 1: 基礎概念 ──────────────────────────────────────────────────────
@@ -64,7 +64,7 @@ async function main() {
       choices: [
         {
           id: 'dev-q1-c1',
-          choiceText: 'バイヤー（買い手企業）が手数料を負担する',
+          text: 'バイヤー（買い手企業）が手数料を負担する',
           isCorrect: true,
           complianceDelta: 5,
           gmvDelta: 10,
@@ -73,7 +73,7 @@ async function main() {
         },
         {
           id: 'dev-q1-c2',
-          choiceText: 'サプライヤー（売り手企業）が手数料を負担する',
+          text: 'サプライヤー（売り手企業）が手数料を負担する',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -5,
@@ -82,7 +82,7 @@ async function main() {
         },
         {
           id: 'dev-q1-c3',
-          choiceText: 'BPSP事業者自身が手数料相当分を負担する',
+          text: 'BPSP事業者自身が手数料相当分を負担する',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -10,
@@ -98,7 +98,7 @@ async function main() {
       choices: [
         {
           id: 'dev-q2-c1',
-          choiceText: '疑似加盟店（バイヤー・サプライヤーをまとめて引き受ける加盟店類似の存在）',
+          text: '疑似加盟店（バイヤー・サプライヤーをまとめて引き受ける加盟店類似の存在）',
           isCorrect: true,
           complianceDelta: 5,
           gmvDelta: 5,
@@ -107,7 +107,7 @@ async function main() {
         },
         {
           id: 'dev-q2-c2',
-          choiceText: 'イシュア（カード発行会社）と同等の機能を持つ事業者',
+          text: 'イシュア（カード発行会社）と同等の機能を持つ事業者',
           isCorrect: false,
           complianceDelta: -10,
           gmvDelta: -5,
@@ -116,7 +116,7 @@ async function main() {
         },
         {
           id: 'dev-q2-c3',
-          choiceText: 'アクワイアリング業務を完全代行するPSP（Payment Service Provider）',
+          text: 'アクワイアリング業務を完全代行するPSP（Payment Service Provider）',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -5,
@@ -132,7 +132,7 @@ async function main() {
       choices: [
         {
           id: 'dev-q3-c1',
-          choiceText: 'カードの支払サイクルを活用した支払繰延（実質最大60日程度）による資金繰り改善',
+          text: 'カードの支払サイクルを活用した支払繰延（実質最大60日程度）による資金繰り改善',
           isCorrect: true,
           complianceDelta: 0,
           gmvDelta: 15,
@@ -141,7 +141,7 @@ async function main() {
         },
         {
           id: 'dev-q3-c2',
-          choiceText: 'サービス利用料（手数料）が一切かからない点',
+          text: 'サービス利用料（手数料）が一切かからない点',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: 5,
@@ -150,7 +150,7 @@ async function main() {
         },
         {
           id: 'dev-q3-c3',
-          choiceText: 'サプライヤーの信用調査や与信審査が不要になる点',
+          text: 'サプライヤーの信用調査や与信審査が不要になる点',
           isCorrect: false,
           complianceDelta: -10,
           gmvDelta: -5,
@@ -166,7 +166,7 @@ async function main() {
       choices: [
         {
           id: 'content-q4-l1-c1',
-          choiceText: 'BtoCと同じく売り手が手数料を負担する慣行だと、高額取引で利益が吹き飛ぶため',
+          text: 'BtoCと同じく売り手が手数料を負担する慣行だと、高額取引で利益が吹き飛ぶため',
           isCorrect: true,
           complianceDelta: 5,
           gmvDelta: 5,
@@ -175,7 +175,7 @@ async function main() {
         },
         {
           id: 'content-q4-l1-c2',
-          choiceText: '日本では法律でBtoBのカード決済が禁止されていたため',
+          text: '日本では法律でBtoBのカード決済が禁止されていたため',
           isCorrect: false,
           complianceDelta: -10,
           gmvDelta: -5,
@@ -184,7 +184,7 @@ async function main() {
         },
         {
           id: 'content-q4-l1-c3',
-          choiceText: '企業間取引の金額が少額すぎてカード決済のコストに見合わないため',
+          text: '企業間取引の金額が少額すぎてカード決済のコストに見合わないため',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -5,
@@ -196,14 +196,14 @@ async function main() {
   ]
 
   for (const q of l1questions) {
-    await prisma.quizQuestion.upsert({
+    await prisma.quiz.upsert({
       where: { id: q.id },
-      update: { questionText: q.questionText, sortOrder: q.sortOrder },
-      create: { id: q.id, levelId: level1.id, questionText: q.questionText, type: 'single_choice', sortOrder: q.sortOrder },
+      update: { question: q.questionText, sortOrder: q.sortOrder },
+      create: { id: q.id, moduleId: level1.id, question: q.questionText, type: 'single_choice', sortOrder: q.sortOrder },
     })
-    await prisma.quizChoice.deleteMany({ where: { questionId: q.id } })
-    await prisma.quizChoice.createMany({
-      data: q.choices.map((c) => ({ ...c, questionId: q.id })),
+    await prisma.quizOption.deleteMany({ where: { quizId: q.id } })
+    await prisma.quizOption.createMany({
+      data: q.choices.map((c) => ({ ...c, quizId: q.id })),
     })
   }
   console.log('Level 1: 5 pages, 4 questions done')
@@ -254,7 +254,7 @@ async function main() {
       choices: [
         {
           id: 'content-q1-l2-c1',
-          choiceText: '自己の名義で立替払いを行い、送金手段は銀行振込に限定する',
+          text: '自己の名義で立替払いを行い、送金手段は銀行振込に限定する',
           isCorrect: true,
           complianceDelta: 10,
           gmvDelta: 5,
@@ -264,7 +264,7 @@ async function main() {
         },
         {
           id: 'content-q1-l2-c2',
-          choiceText: '暗号資産や電子決済手段を使って即時送金を実施する',
+          text: '暗号資産や電子決済手段を使って即時送金を実施する',
           isCorrect: false,
           complianceDelta: -25,
           gmvDelta: 10,
@@ -274,7 +274,7 @@ async function main() {
         },
         {
           id: 'content-q1-l2-c3',
-          choiceText: '法的判断が複雑なため、まず事業を開始して規制当局の判断を待つ',
+          text: '法的判断が複雑なため、まず事業を開始して規制当局の判断を待つ',
           isCorrect: false,
           complianceDelta: -20,
           gmvDelta: -10,
@@ -292,7 +292,7 @@ async function main() {
       choices: [
         {
           id: 'content-q2-l2-c1',
-          choiceText: '高額かつ申込時の業種申告との不整合を確認し、追加審査を実施してから判断する',
+          text: '高額かつ申込時の業種申告との不整合を確認し、追加審査を実施してから判断する',
           isCorrect: true,
           complianceDelta: 10,
           gmvDelta: -10,
@@ -302,7 +302,7 @@ async function main() {
         },
         {
           id: 'content-q2-l2-c2',
-          choiceText: '取引金額が大きく事業貢献度が高いため、迅速に承認する',
+          text: '取引金額が大きく事業貢献度が高いため、迅速に承認する',
           isCorrect: false,
           complianceDelta: -20,
           gmvDelta: 30,
@@ -312,7 +312,7 @@ async function main() {
         },
         {
           id: 'content-q2-l2-c3',
-          choiceText: '申請内容に問題はないと判断し、通常の処理を進める',
+          text: '申請内容に問題はないと判断し、通常の処理を進める',
           isCorrect: false,
           complianceDelta: -15,
           gmvDelta: 15,
@@ -330,7 +330,7 @@ async function main() {
       choices: [
         {
           id: 'content-q3-l2-c1',
-          choiceText:
+          text:
             'クロスボーダー収納代行に該当する可能性があるため、資金移動業登録の要否をコンプライアンス部門に確認してから判断する',
           isCorrect: true,
           complianceDelta: 10,
@@ -341,7 +341,7 @@ async function main() {
         },
         {
           id: 'content-q3-l2-c2',
-          choiceText: '海外送金も通常業務の範囲内と判断し、すぐに承認する',
+          text: '海外送金も通常業務の範囲内と判断し、すぐに承認する',
           isCorrect: false,
           complianceDelta: -100,
           gmvDelta: 50,
@@ -351,7 +351,7 @@ async function main() {
         },
         {
           id: 'content-q3-l2-c3',
-          choiceText: 'コンプライアンス部門に確認せず、担当営業の判断に委ねる',
+          text: 'コンプライアンス部門に確認せず、担当営業の判断に委ねる',
           isCorrect: false,
           complianceDelta: -30,
           gmvDelta: 10,
@@ -369,7 +369,7 @@ async function main() {
       choices: [
         {
           id: 'content-q4-l2-c1',
-          choiceText: '利用者の財務状況に応じてサービス可否・手数料・利用上限額を変動させている設計',
+          text: '利用者の財務状況に応じてサービス可否・手数料・利用上限額を変動させている設計',
           isCorrect: true,
           complianceDelta: 10,
           gmvDelta: 5,
@@ -379,7 +379,7 @@ async function main() {
         },
         {
           id: 'content-q4-l2-c2',
-          choiceText: 'すべての利用者に一律の手数料率を適用している設計',
+          text: 'すべての利用者に一律の手数料率を適用している設計',
           isCorrect: false,
           complianceDelta: -10,
           gmvDelta: -5,
@@ -389,7 +389,7 @@ async function main() {
         },
         {
           id: 'content-q4-l2-c3',
-          choiceText: '立替期間が数日と短く、事務効率化を主目的とした設計',
+          text: '立替期間が数日と短く、事務効率化を主目的とした設計',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -5,
@@ -402,14 +402,14 @@ async function main() {
   ]
 
   for (const q of l2questions) {
-    await prisma.quizQuestion.upsert({
+    await prisma.quiz.upsert({
       where: { id: q.id },
-      update: { questionText: q.questionText, sortOrder: q.sortOrder },
-      create: { id: q.id, levelId: level2.id, questionText: q.questionText, type: 'single_choice', sortOrder: q.sortOrder },
+      update: { question: q.questionText, sortOrder: q.sortOrder },
+      create: { id: q.id, moduleId: level2.id, question: q.questionText, type: 'single_choice', sortOrder: q.sortOrder },
     })
-    await prisma.quizChoice.deleteMany({ where: { questionId: q.id } })
-    await prisma.quizChoice.createMany({
-      data: q.choices.map((c) => ({ ...c, questionId: q.id })),
+    await prisma.quizOption.deleteMany({ where: { quizId: q.id } })
+    await prisma.quizOption.createMany({
+      data: q.choices.map((c) => ({ ...c, quizId: q.id })),
     })
   }
   console.log('Level 2: 5 pages, 4 questions done')
@@ -460,7 +460,7 @@ async function main() {
       choices: [
         {
           id: 'content-q1-l3-c1',
-          choiceText: '振込人名義が請求先企業名と異なっているため、自動突合ができない',
+          text: '振込人名義が請求先企業名と異なっているため、自動突合ができない',
           isCorrect: true,
           complianceDelta: 0,
           gmvDelta: 5,
@@ -470,7 +470,7 @@ async function main() {
         },
         {
           id: 'content-q1-l3-c2',
-          choiceText: 'PCI DSS監査の不適合により取引処理が停止している',
+          text: 'PCI DSS監査の不適合により取引処理が停止している',
           isCorrect: false,
           complianceDelta: -20,
           gmvDelta: -15,
@@ -480,7 +480,7 @@ async function main() {
         },
         {
           id: 'content-q1-l3-c3',
-          choiceText: '取引先の倒産により入金が止まった',
+          text: '取引先の倒産により入金が止まった',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -20,
@@ -498,7 +498,7 @@ async function main() {
       choices: [
         {
           id: 'content-q2-l3-c1',
-          choiceText:
+          text:
             'カード情報を自社システムで直接保持せず、トークン化・決済代行サービスを活用して非保持化する',
           isCorrect: true,
           complianceDelta: 10,
@@ -509,7 +509,7 @@ async function main() {
         },
         {
           id: 'content-q2-l3-c2',
-          choiceText: 'カード情報を自社のセキュリティ強化されたデータベースに暗号化して保存する',
+          text: 'カード情報を自社のセキュリティ強化されたデータベースに暗号化して保存する',
           isCorrect: false,
           complianceDelta: -20,
           gmvDelta: 5,
@@ -519,7 +519,7 @@ async function main() {
         },
         {
           id: 'content-q2-l3-c3',
-          choiceText: 'カード情報の取扱いはアクワイアラの責任なので、自社では特段の対応は不要',
+          text: 'カード情報の取扱いはアクワイアラの責任なので、自社では特段の対応は不要',
           isCorrect: false,
           complianceDelta: -30,
           gmvDelta: -10,
@@ -537,7 +537,7 @@ async function main() {
       choices: [
         {
           id: 'content-q3-l3-c1',
-          choiceText:
+          text:
             'GMV（取扱高）の拡大には運転資金・資本コストの確保が前提であり、収益より先に資金繰りが悪化するリスクがある',
           isCorrect: true,
           complianceDelta: 5,
@@ -548,7 +548,7 @@ async function main() {
         },
         {
           id: 'content-q3-l3-c2',
-          choiceText: 'GMV拡大は常に収益拡大を意味するため、積極的に拡大すれば資金繰りは自然に改善する',
+          text: 'GMV拡大は常に収益拡大を意味するため、積極的に拡大すれば資金繰りは自然に改善する',
           isCorrect: false,
           complianceDelta: -10,
           gmvDelta: 20,
@@ -558,7 +558,7 @@ async function main() {
         },
         {
           id: 'content-q3-l3-c3',
-          choiceText: 'サプライヤーへの入金はカード会社からの回収後に設定すれば資金繰りリスクはゼロになる',
+          text: 'サプライヤーへの入金はカード会社からの回収後に設定すれば資金繰りリスクはゼロになる',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -10,
@@ -571,14 +571,14 @@ async function main() {
   ]
 
   for (const q of l3questions) {
-    await prisma.quizQuestion.upsert({
+    await prisma.quiz.upsert({
       where: { id: q.id },
-      update: { questionText: q.questionText, sortOrder: q.sortOrder },
-      create: { id: q.id, levelId: level3.id, questionText: q.questionText, type: 'single_choice', sortOrder: q.sortOrder },
+      update: { question: q.questionText, sortOrder: q.sortOrder },
+      create: { id: q.id, moduleId: level3.id, question: q.questionText, type: 'single_choice', sortOrder: q.sortOrder },
     })
-    await prisma.quizChoice.deleteMany({ where: { questionId: q.id } })
-    await prisma.quizChoice.createMany({
-      data: q.choices.map((c) => ({ ...c, questionId: q.id })),
+    await prisma.quizOption.deleteMany({ where: { quizId: q.id } })
+    await prisma.quizOption.createMany({
+      data: q.choices.map((c) => ({ ...c, quizId: q.id })),
     })
   }
   console.log('Level 3: 5 pages, 3 questions done')
@@ -624,7 +624,7 @@ async function main() {
       choices: [
         {
           id: 'content-q1-l4-c1',
-          choiceText:
+          text:
             '「資金繰りではなく、購買・経理業務の工数削減に大きな効果があります。御社の月間振込件数で試算すると…」と業務効率の定量化を提示する',
           isCorrect: true,
           complianceDelta: 5,
@@ -635,7 +635,7 @@ async function main() {
         },
         {
           id: 'content-q1-l4-c2',
-          choiceText: '「ポイント還元で実質1.5%程度の負担になります」とポイントメリットを強調する',
+          text: '「ポイント還元で実質1.5%程度の負担になります」とポイントメリットを強調する',
           isCorrect: false,
           complianceDelta: 0,
           gmvDelta: 5,
@@ -645,7 +645,7 @@ async function main() {
         },
         {
           id: 'content-q1-l4-c3',
-          choiceText: '「では競合他社も検討されているかもしれませんので、特別価格をご提示します」と価格交渉に応じる',
+          text: '「では競合他社も検討されているかもしれませんので、特別価格をご提示します」と価格交渉に応じる',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -10,
@@ -663,7 +663,7 @@ async function main() {
       choices: [
         {
           id: 'content-q2-l4-c1',
-          choiceText:
+          text:
             'ファクタリングは売り手が売掛債権を売却して早期回収する仕組み（売り手向け）、BPSPは買い手が支払いを繰り延べる仕組み（買い手向け）で、資金繰り改善の方向が逆',
           isCorrect: true,
           complianceDelta: 5,
@@ -674,7 +674,7 @@ async function main() {
         },
         {
           id: 'content-q2-l4-c2',
-          choiceText: 'ファクタリングは違法なグレーゾーン商品であり、BPSPのほうが安全で合法的な選択肢',
+          text: 'ファクタリングは違法なグレーゾーン商品であり、BPSPのほうが安全で合法的な選択肢',
           isCorrect: false,
           complianceDelta: -20,
           gmvDelta: -5,
@@ -684,7 +684,7 @@ async function main() {
         },
         {
           id: 'content-q2-l4-c3',
-          choiceText: 'BPSPもファクタリングも本質的には同じサービスで、呼び方が異なるだけ',
+          text: 'BPSPもファクタリングも本質的には同じサービスで、呼び方が異なるだけ',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -5,
@@ -702,7 +702,7 @@ async function main() {
       choices: [
         {
           id: 'content-q3-l4-c1',
-          choiceText:
+          text:
             '大企業の決裁プロセスは複雑で、外部の営業担当が直接アクセスできない意思決定者を社内から動かすキーパーソンが必要なため',
           isCorrect: true,
           complianceDelta: 5,
@@ -713,7 +713,7 @@ async function main() {
         },
         {
           id: 'content-q3-l4-c2',
-          choiceText: '社内チャンピオンが稟議書を代わりに作成してくれるため、営業の手間が省けるから',
+          text: '社内チャンピオンが稟議書を代わりに作成してくれるため、営業の手間が省けるから',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: 5,
@@ -723,7 +723,7 @@ async function main() {
         },
         {
           id: 'content-q3-l4-c3',
-          choiceText: '社内チャンピオンを通じて競合他社の提案内容や価格情報を収集できるから',
+          text: '社内チャンピオンを通じて競合他社の提案内容や価格情報を収集できるから',
           isCorrect: false,
           complianceDelta: -15,
           gmvDelta: -5,
@@ -736,14 +736,14 @@ async function main() {
   ]
 
   for (const q of l4questions) {
-    await prisma.quizQuestion.upsert({
+    await prisma.quiz.upsert({
       where: { id: q.id },
-      update: { questionText: q.questionText, sortOrder: q.sortOrder },
-      create: { id: q.id, levelId: level4.id, questionText: q.questionText, type: 'single_choice', sortOrder: q.sortOrder },
+      update: { question: q.questionText, sortOrder: q.sortOrder },
+      create: { id: q.id, moduleId: level4.id, question: q.questionText, type: 'single_choice', sortOrder: q.sortOrder },
     })
-    await prisma.quizChoice.deleteMany({ where: { questionId: q.id } })
-    await prisma.quizChoice.createMany({
-      data: q.choices.map((c) => ({ ...c, questionId: q.id })),
+    await prisma.quizOption.deleteMany({ where: { quizId: q.id } })
+    await prisma.quizOption.createMany({
+      data: q.choices.map((c) => ({ ...c, quizId: q.id })),
     })
   }
   console.log('Level 4: 4 pages, 3 questions done')
@@ -789,7 +789,7 @@ async function main() {
       choices: [
         {
           id: 'content-q1-l5-c1',
-          choiceText: '3以上（フィンテック業界では5以上が理想とされる）',
+          text: '3以上（フィンテック業界では5以上が理想とされる）',
           isCorrect: true,
           complianceDelta: 5,
           gmvDelta: 15,
@@ -799,7 +799,7 @@ async function main() {
         },
         {
           id: 'content-q1-l5-c2',
-          choiceText: '1以上（回収できていれば事業として成立する）',
+          text: '1以上（回収できていれば事業として成立する）',
           isCorrect: false,
           complianceDelta: -10,
           gmvDelta: 10,
@@ -809,7 +809,7 @@ async function main() {
         },
         {
           id: 'content-q1-l5-c3',
-          choiceText: '0.5以上（初期投資段階では半分回収できれば許容範囲）',
+          text: '0.5以上（初期投資段階では半分回収できれば許容範囲）',
           isCorrect: false,
           complianceDelta: -15,
           gmvDelta: 5,
@@ -827,7 +827,7 @@ async function main() {
       choices: [
         {
           id: 'content-q2-l5-c1',
-          choiceText:
+          text:
             '会計SaaSや業界特化型プラットフォームにBPSP機能を組み込み、ユーザーがサービス内でシームレスに請求書カード払いできる体験を実現する',
           isCorrect: true,
           complianceDelta: 5,
@@ -838,7 +838,7 @@ async function main() {
         },
         {
           id: 'content-q2-l5-c2',
-          choiceText: '全業種・全規模に対応する独立したBPSPプラットフォームとして水平展開する',
+          text: '全業種・全規模に対応する独立したBPSPプラットフォームとして水平展開する',
           isCorrect: false,
           complianceDelta: 0,
           gmvDelta: 10,
@@ -848,7 +848,7 @@ async function main() {
         },
         {
           id: 'content-q2-l5-c3',
-          choiceText: 'BtoCの個人向け後払い（BNPL）市場に参入してBtoBとBtoCを統合する',
+          text: 'BtoCの個人向け後払い（BNPL）市場に参入してBtoBとBtoCを統合する',
           isCorrect: false,
           complianceDelta: -10,
           gmvDelta: 10,
@@ -866,7 +866,7 @@ async function main() {
       choices: [
         {
           id: 'content-q3-l5-c1',
-          choiceText:
+          text:
             '推計1,000兆円超で、国内の家計消費（約322兆円）の3倍以上。大半が今も銀行振込・紙の請求書ベース',
           isCorrect: true,
           complianceDelta: 5,
@@ -877,7 +877,7 @@ async function main() {
         },
         {
           id: 'content-q3-l5-c2',
-          choiceText: '約150兆円程度で、BtoC決済市場と同規模',
+          text: '約150兆円程度で、BtoC決済市場と同規模',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -5,
@@ -887,7 +887,7 @@ async function main() {
         },
         {
           id: 'content-q3-l5-c3',
-          choiceText: '約500兆円程度で、キャッシュレス化は着実に進んでいるため追加の市場機会は限定的',
+          text: '約500兆円程度で、キャッシュレス化は着実に進んでいるため追加の市場機会は限定的',
           isCorrect: false,
           complianceDelta: -5,
           gmvDelta: -5,
@@ -900,14 +900,14 @@ async function main() {
   ]
 
   for (const q of l5questions) {
-    await prisma.quizQuestion.upsert({
+    await prisma.quiz.upsert({
       where: { id: q.id },
-      update: { questionText: q.questionText, sortOrder: q.sortOrder },
-      create: { id: q.id, levelId: level5.id, questionText: q.questionText, type: 'single_choice', sortOrder: q.sortOrder },
+      update: { question: q.questionText, sortOrder: q.sortOrder },
+      create: { id: q.id, moduleId: level5.id, question: q.questionText, type: 'single_choice', sortOrder: q.sortOrder },
     })
-    await prisma.quizChoice.deleteMany({ where: { questionId: q.id } })
-    await prisma.quizChoice.createMany({
-      data: q.choices.map((c) => ({ ...c, questionId: q.id })),
+    await prisma.quizOption.deleteMany({ where: { quizId: q.id } })
+    await prisma.quizOption.createMany({
+      data: q.choices.map((c) => ({ ...c, quizId: q.id })),
     })
   }
   console.log('Level 5: 4 pages, 3 questions done')

@@ -14,7 +14,7 @@ const prisma = new PrismaClient()
 
 async function main() {
   // Level 1 を公開状態に変更（ゲームメカニクスのテスト用）
-  const level1 = await prisma.level.update({
+  const level1 = await prisma.module.update({
     where: { levelNumber: 1 },
     data: { isPublished: true },
   })
@@ -57,13 +57,13 @@ async function main() {
 
   // ── Level 1 クイズ問題（ゲームメカニクス確認用） ──
   // Q1: 基本問題（正解でコンプライアンス+5）
-  const q1 = await prisma.quizQuestion.upsert({
+  const q1 = await prisma.quiz.upsert({
     where: { id: 'dev-q1-l1' },
     update: {},
     create: {
       id: 'dev-q1-l1',
-      levelId: level1.id,
-      questionText:
+      moduleId: level1.id,
+      question:
         '【テスト問題①】BPSPとして新しい加盟店から申し込みがありました。最初に行うべき対応はどれですか？',
       type: 'single_choice',
       sortOrder: 1,
@@ -73,8 +73,8 @@ async function main() {
   const q1choices = [
     {
       id: 'dev-q1-c1',
-      questionId: q1.id,
-      choiceText: 'KYC（本人確認）と事業内容の審査を実施する',
+      quizId: q1.id,
+      text: 'KYC（本人確認）と事業内容の審査を実施する',
       isCorrect: true,
       complianceDelta: 5,
       gmvDelta: 10,
@@ -84,8 +84,8 @@ async function main() {
     },
     {
       id: 'dev-q1-c2',
-      questionId: q1.id,
-      choiceText: '早急に契約書を送って契約を締結する',
+      quizId: q1.id,
+      text: '早急に契約書を送って契約を締結する',
       isCorrect: false,
       complianceDelta: -15,
       gmvDelta: 20,
@@ -95,8 +95,8 @@ async function main() {
     },
     {
       id: 'dev-q1-c3',
-      questionId: q1.id,
-      choiceText: '競合他社の条件を先に調べてから対応する',
+      quizId: q1.id,
+      text: '競合他社の条件を先に調べてから対応する',
       isCorrect: false,
       complianceDelta: 0,
       gmvDelta: 0,
@@ -107,7 +107,7 @@ async function main() {
   ]
 
   for (const c of q1choices) {
-    await prisma.quizChoice.upsert({
+    await prisma.quizOption.upsert({
       where: { id: c.id },
       update: {},
       create: c,
@@ -115,13 +115,13 @@ async function main() {
   }
 
   // Q2: 中級問題（不正解で大きくコンプライアンス低下）
-  const q2 = await prisma.quizQuestion.upsert({
+  const q2 = await prisma.quiz.upsert({
     where: { id: 'dev-q2-l1' },
     update: {},
     create: {
       id: 'dev-q2-l1',
-      levelId: level1.id,
-      questionText:
+      moduleId: level1.id,
+      question:
         '【テスト問題②】加盟店の月次精算データに、通常の10倍の金額の取引が複数件含まれていました。どう対応しますか？',
       type: 'single_choice',
       sortOrder: 2,
@@ -131,8 +131,8 @@ async function main() {
   const q2choices = [
     {
       id: 'dev-q2-c1',
-      questionId: q2.id,
-      choiceText: 'AML部門に報告し、当該取引を保留にして調査を開始する',
+      quizId: q2.id,
+      text: 'AML部門に報告し、当該取引を保留にして調査を開始する',
       isCorrect: true,
       complianceDelta: 10,
       gmvDelta: -20,
@@ -142,8 +142,8 @@ async function main() {
     },
     {
       id: 'dev-q2-c2',
-      questionId: q2.id,
-      choiceText: '加盟店に確認の連絡を入れ、説明がつけば通常処理する',
+      quizId: q2.id,
+      text: '加盟店に確認の連絡を入れ、説明がつけば通常処理する',
       isCorrect: false,
       complianceDelta: -10,
       gmvDelta: 10,
@@ -153,8 +153,8 @@ async function main() {
     },
     {
       id: 'dev-q2-c3',
-      questionId: q2.id,
-      choiceText: '大口取引は歓迎すべきで、問題ないと判断して通常処理する',
+      quizId: q2.id,
+      text: '大口取引は歓迎すべきで、問題ないと判断して通常処理する',
       isCorrect: false,
       complianceDelta: -30,
       gmvDelta: 30,
@@ -165,7 +165,7 @@ async function main() {
   ]
 
   for (const c of q2choices) {
-    await prisma.quizChoice.upsert({
+    await prisma.quizOption.upsert({
       where: { id: c.id },
       update: {},
       create: c,
@@ -173,13 +173,13 @@ async function main() {
   }
 
   // Q3: ゲームオーバーリスク問題
-  const q3 = await prisma.quizQuestion.upsert({
+  const q3 = await prisma.quiz.upsert({
     where: { id: 'dev-q3-l1' },
     update: {},
     create: {
       id: 'dev-q3-l1',
-      levelId: level1.id,
-      questionText:
+      moduleId: level1.id,
+      question:
         '【テスト問題③ ゲームオーバーリスクあり】最重要顧客（売上の30%）から、規制当局の目をかいくぐりたい取引の処理を依頼されました。',
       type: 'single_choice',
       sortOrder: 3,
@@ -189,8 +189,8 @@ async function main() {
   const q3choices = [
     {
       id: 'dev-q3-c1',
-      questionId: q3.id,
-      choiceText: '顧客規模にかかわらず断り、コンプライアンス部門へ即座に報告する',
+      quizId: q3.id,
+      text: '顧客規模にかかわらず断り、コンプライアンス部門へ即座に報告する',
       isCorrect: true,
       complianceDelta: 15,
       gmvDelta: -50,
@@ -200,8 +200,8 @@ async function main() {
     },
     {
       id: 'dev-q3-c2',
-      questionId: q3.id,
-      choiceText: '売上の30%を失うリスクを考え、今回だけ例外として処理する',
+      quizId: q3.id,
+      text: '売上の30%を失うリスクを考え、今回だけ例外として処理する',
       isCorrect: false,
       complianceDelta: -100,
       gmvDelta: 100,
@@ -211,8 +211,8 @@ async function main() {
     },
     {
       id: 'dev-q3-c3',
-      questionId: q3.id,
-      choiceText: '法務部門と相談しながら、取引の合法性を慎重に検討する',
+      quizId: q3.id,
+      text: '法務部門と相談しながら、取引の合法性を慎重に検討する',
       isCorrect: false,
       complianceDelta: 5,
       gmvDelta: -30,
@@ -223,7 +223,7 @@ async function main() {
   ]
 
   for (const c of q3choices) {
-    await prisma.quizChoice.upsert({
+    await prisma.quizOption.upsert({
       where: { id: c.id },
       update: {},
       create: c,

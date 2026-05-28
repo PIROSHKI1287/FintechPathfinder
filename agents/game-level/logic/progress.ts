@@ -14,14 +14,14 @@ export interface ProgressEntry {
 export async function getUserProgress(userId: string): Promise<ProgressEntry[]> {
   const rows = await prisma.userProgress.findMany({
     where: { userId },
-    include: { level: { select: { levelNumber: true, title: true } } },
-    orderBy: { level: { levelNumber: 'asc' } },
+    include: { module: { select: { levelNumber: true, title: true } } },
+    orderBy: { module: { levelNumber: 'asc' } },
   })
 
   return rows.map((r) => ({
-    levelId: r.levelId,
-    levelNumber: r.level.levelNumber,
-    title: r.level.title,
+    levelId: r.moduleId,
+    levelNumber: r.module.levelNumber,
+    title: r.module.title,
     status: r.status,
     complianceScore: r.complianceScore,
     gmvScore: r.gmvScore,
@@ -42,7 +42,7 @@ export async function getProgressForLevel(
   levelId: string,
 ): Promise<CurrentParams | null> {
   const row = await prisma.userProgress.findUnique({
-    where: { userId_levelId: { userId, levelId } },
+    where: { userId_moduleId: { userId, moduleId: levelId } },
     select: { status: true, complianceScore: true, gmvScore: true, uxScore: true },
   })
   return row
@@ -69,8 +69,8 @@ export async function saveOrUpdateProgress(
   }
 
   await prisma.userProgress.upsert({
-    where: { userId_levelId: { userId, levelId: input.levelId } },
-    create: { userId, levelId: input.levelId, ...data },
+    where: { userId_moduleId: { userId, moduleId: input.levelId } },
+    create: { userId, moduleId: input.levelId, ...data },
     update: data,
   })
 }

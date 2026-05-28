@@ -1,17 +1,17 @@
 import { prisma } from '@/core/db/prisma'
 import { isLevelUnlockedForUser } from '@agents/game-level/logic/levels'
 
-export interface QuizChoice {
+export interface QuizOption {
   id: string
-  choiceText: string
+  text: string
 }
 
 export interface QuizQuestion {
   id: string
-  questionText: string
+  question: string
   type: string
   sortOrder: number
-  choices: QuizChoice[]
+  options: QuizOption[]
 }
 
 export interface QuizSetup {
@@ -25,38 +25,38 @@ export async function getQuizSetup(
   userId: string,
   levelNumber: number,
 ): Promise<QuizSetup | null> {
-  const level = await prisma.level.findUnique({
+  const module = await prisma.module.findUnique({
     where: { levelNumber },
     select: { id: true, levelNumber: true, title: true },
   })
-  if (!level) return null
+  if (!module) return null
 
   const unlocked = await isLevelUnlockedForUser(userId, levelNumber)
   if (!unlocked) return null
 
-  const questions = await getQuestionsForLevel(level.id)
+  const questions = await getQuestionsForLevel(module.id)
 
   return {
-    levelId: level.id,
-    levelNumber: level.levelNumber,
-    title: level.title,
+    levelId: module.id,
+    levelNumber: module.levelNumber,
+    title: module.title,
     questions,
   }
 }
 
 export async function getQuestionsForLevel(levelId: string): Promise<QuizQuestion[]> {
-  const rows = await prisma.quizQuestion.findMany({
-    where: { levelId },
+  const rows = await prisma.quiz.findMany({
+    where: { moduleId: levelId },
     orderBy: { sortOrder: 'asc' },
     select: {
       id: true,
-      questionText: true,
+      question: true,
       type: true,
       sortOrder: true,
-      choices: {
+      options: {
         select: {
           id: true,
-          choiceText: true,
+          text: true,
           // isCorrect / deltas は意図的に除外（クライアント改ざん防止）
         },
       },

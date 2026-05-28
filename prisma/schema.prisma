@@ -22,22 +22,63 @@ model User {
   @@map("users")
 }
 
-model Level {
+// ── Course（学習領域単位）──────────────────────────────────────────────────
+model Course {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String?
+  isPublished Boolean  @default(false)
+  order       Int      @default(0)
+  modules     Module[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("courses")
+}
+
+// ── Module（旧 Level）─────────────────────────────────────────────────────
+model Module {
   id          String  @id @default(cuid())
+  courseId    String?
+  course      Course? @relation(fields: [courseId], references: [id])
+  slug        String  @default("")
   levelNumber Int     @unique
   title       String
   description String
   isPublished Boolean @default(false)
   sortOrder   Int     @default(0)
 
-  storyPages    StoryPage[]
-  quizQuestions QuizQuestion[]
-  userProgress  UserProgress[]
-  dictTerms     DictionaryTerm[]
+  units        Unit[]
+  quizzes      Quiz[]
+  storyPages   StoryPage[]
+  userProgress UserProgress[]
+  dictTerms    DictionaryTerm[]
 
   @@map("levels")
 }
 
+// ── Unit（座学セクション）─────────────────────────────────────────────────
+model Unit {
+  id       String   @id @default(cuid())
+  moduleId String
+  module   Module   @relation(fields: [moduleId], references: [id])
+  type     UnitType
+  order    Int
+  title    String
+  script   Json?
+
+  quizzes Quiz[]
+
+  @@map("units")
+}
+
+enum UnitType {
+  LECTURE
+  QUIZ
+}
+
+// ── StoryPage（後方互換保持）──────────────────────────────────────────────
 model StoryPage {
   id          String  @id @default(cuid())
   levelId     String
@@ -45,74 +86,84 @@ model StoryPage {
   contentJson Json
   diagramUrl  String?
 
-  level Level @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [levelId], references: [id], onDelete: Cascade)
 
   @@unique([levelId, pageNumber])
   @@map("story_pages")
 }
 
-model QuizQuestion {
-  id           String @id @default(cuid())
-  levelId      String
-  questionText String
-  type         String // "single_choice" | "simulation"
-  sortOrder    Int    @default(0)
+// ── Quiz（旧 QuizQuestion）────────────────────────────────────────────────
+model Quiz {
+  id          String  @id @default(cuid())
+  moduleId    String  @map("levelId")
+  module      Module  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  unitId      String?
+  unit        Unit?   @relation(fields: [unitId], references: [id])
+  question    String  @map("questionText")
+  type        String  @default("SINGLE")
+  explanation String?
+  isPublished Boolean @default(false)
+  sortOrder   Int     @default(0)
 
-  level    Level        @relation(fields: [levelId], references: [id], onDelete: Cascade)
-  choices  QuizChoice[]
+  options  QuizOption[]
   attempts QuizAttempt[]
 
   @@map("quiz_questions")
 }
 
-model QuizChoice {
+// ── QuizOption（旧 QuizChoice）────────────────────────────────────────────
+model QuizOption {
   id              String  @id @default(cuid())
-  questionId      String
-  choiceText      String
+  quizId          String  @map("questionId")
+  quiz            Quiz    @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  text            String  @map("choiceText")
   isCorrect       Boolean @default(false)
+  order           Int     @default(0)
   complianceDelta Int     @default(0)
   gmvDelta        Int     @default(0)
   uxDelta         Int     @default(0)
   feedbackText    String?
 
-  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
   @@map("quiz_choices")
 }
 
+// ── UserProgress ──────────────────────────────────────────────────────────
 model UserProgress {
   id              String    @id @default(cuid())
   userId          String
-  levelId         String
+  courseId        String?
+  moduleId        String    @map("levelId")
   status          String    // "in_progress" | "cleared" | "game_over"
   complianceScore Int       @default(100)
   gmvScore        Int       @default(0)
   uxScore         Int       @default(100)
   clearedAt       DateTime?
 
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  level Level @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, levelId])
+  @@unique([userId, moduleId])
   @@map("user_progress")
 }
 
+// ── QuizAttempt ───────────────────────────────────────────────────────────
 model QuizAttempt {
-  id             String   @id @default(cuid())
-  userId         String
-  questionId     String
-  chosenChoiceId String?
-  answeredAt     DateTime @default(now())
+  id              String   @id @default(cuid())
+  userId          String
+  questionId      String
+  chosenChoiceId  String?
+  answeredAt      DateTime @default(now())
   complianceAfter Int
   gmvAfter        Int
   uxAfter         Int
 
-  user     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  user     User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question Quiz @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@map("quiz_attempts")
 }
 
+// ── DictionaryTerm ────────────────────────────────────────────────────────
 model DictionaryTerm {
   id             String   @id @default(cuid())
   term           String
@@ -121,7 +172,7 @@ model DictionaryTerm {
   relatedLevelId String?
   createdAt      DateTime @default(now())
 
-  relatedLevel Level? @relation(fields: [relatedLevelId], references: [id])
+  relatedLevel Module? @relation(fields: [relatedLevelId], references: [id])
 
   @@map("dictionary_terms")
 }

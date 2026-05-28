@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 async function main() {
   // ── レベル構造（全て isPublished=false。コンテンツ解禁後に true へ変更） ──
-  const level1 = await prisma.level.upsert({
+  const level1 = await prisma.module.upsert({
     where: { levelNumber: 1 },
     update: {},
     create: {
@@ -16,7 +16,7 @@ async function main() {
     },
   })
 
-  const level2 = await prisma.level.upsert({
+  const level2 = await prisma.module.upsert({
     where: { levelNumber: 2 },
     update: {},
     create: {
@@ -28,7 +28,7 @@ async function main() {
     },
   })
 
-  const level3 = await prisma.level.upsert({
+  const level3 = await prisma.module.upsert({
     where: { levelNumber: 3 },
     update: {},
     create: {
@@ -40,7 +40,7 @@ async function main() {
     },
   })
 
-  await prisma.level.upsert({
+  await prisma.module.upsert({
     where: { levelNumber: 4 },
     update: {},
     create: {
@@ -52,7 +52,7 @@ async function main() {
     },
   })
 
-  await prisma.level.upsert({
+  await prisma.module.upsert({
     where: { levelNumber: 5 },
     update: {},
     create: {

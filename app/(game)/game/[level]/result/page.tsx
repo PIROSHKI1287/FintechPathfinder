@@ -11,7 +11,7 @@ export default async function ResultPage({ params }: { params: { level: string }
   const levelNumber = parseInt(params.level, 10)
   if (isNaN(levelNumber)) redirect('/home')
 
-  const level = await prisma.level.findUnique({
+  const level = await prisma.module.findUnique({
     where: { levelNumber },
     select: { id: true, title: true },
   })
@@ -22,7 +22,7 @@ export default async function ResultPage({ params }: { params: { level: string }
     redirect(`/game/${levelNumber}/quiz`)
   }
 
-  const nextLevel = await prisma.level.findUnique({
+  const nextLevel = await prisma.module.findUnique({
     where: { levelNumber: levelNumber + 1 },
     select: { id: true },
   })

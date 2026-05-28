@@ -17,7 +17,7 @@ export interface LevelWithProgress {
 }
 
 export async function getLevelsWithProgress(userId: string): Promise<LevelWithProgress[]> {
-  const levels = await prisma.level.findMany({
+  const modules = await prisma.module.findMany({
     orderBy: { sortOrder: 'asc' },
     include: {
       userProgress: {
@@ -29,16 +29,16 @@ export async function getLevelsWithProgress(userId: string): Promise<LevelWithPr
 
   const result: LevelWithProgress[] = []
 
-  for (const level of levels) {
-    const progress = level.userProgress[0] ?? null
-    const isUnlocked = await isLevelUnlockedForUser(userId, level.levelNumber)
+  for (const module of modules) {
+    const progress = module.userProgress[0] ?? null
+    const isUnlocked = await isLevelUnlockedForUser(userId, module.levelNumber)
 
     result.push({
-      id: level.id,
-      levelNumber: level.levelNumber,
-      title: level.title,
-      description: level.description,
-      isPublished: level.isPublished,
+      id: module.id,
+      levelNumber: module.levelNumber,
+      title: module.title,
+      description: module.description,
+      isPublished: module.isPublished,
       isUnlocked,
       progress: progress
         ? {
@@ -61,14 +61,14 @@ export async function isLevelUnlockedForUser(
 ): Promise<boolean> {
   if (levelNumber === 1) return true
 
-  const prevLevel = await prisma.level.findUnique({
+  const prevModule = await prisma.module.findUnique({
     where: { levelNumber: levelNumber - 1 },
     select: { id: true },
   })
-  if (!prevLevel) return false
+  if (!prevModule) return false
 
   const prevProgress = await prisma.userProgress.findUnique({
-    where: { userId_levelId: { userId, levelId: prevLevel.id } },
+    where: { userId_moduleId: { userId, moduleId: prevModule.id } },
     select: { status: true },
   })
 

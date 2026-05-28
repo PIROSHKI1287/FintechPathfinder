@@ -9,7 +9,7 @@ export interface PreviewPage {
 }
 
 export async function getPreviewPage(): Promise<PreviewPage | null> {
-  const level = await prisma.level.findUnique({
+  const module = await prisma.module.findUnique({
     where: { levelNumber: 1 },
     include: {
       storyPages: {
@@ -19,9 +19,9 @@ export async function getPreviewPage(): Promise<PreviewPage | null> {
     },
   })
 
-  if (!level || !level.isPublished) return null
+  if (!module || !module.isPublished) return null
 
-  const page = level.storyPages[0]
+  const page = module.storyPages[0]
   if (!page) return null
 
   const raw = page.contentJson
@@ -31,9 +31,9 @@ export async function getPreviewPage(): Promise<PreviewPage | null> {
       : {}
 
   return {
-    levelId: level.id,
-    levelNumber: level.levelNumber,
-    title: level.title,
+    levelId: module.id,
+    levelNumber: module.levelNumber,
+    title: module.title,
     heading: typeof content.heading === 'string' ? content.heading : null,
     body: typeof content.body === 'string' ? content.body : null,
   }
