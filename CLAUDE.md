@@ -68,7 +68,8 @@ ORM                       : Prisma 5.x
 | CI | GitHub Actions green（lint + test PASS） |
 | レビュー | Critical / High 指摘ゼロ |
 | セキュリティ | Security Agent 監査 PASS |
-| 動作確認 | 実際に手動動作確認済み |
+| Devサーバー実動作 | `.next`削除→`npm run dev`再起動→エラーなし。新規UIは初期表示・ボタン・遷移を操作確認 |
+| 人間E2E承認 | `plans/*-e2e.md` の受け入れ条件を全項クリアし、人間が明示的に承認 |
 | ドキュメント | `memories/lessons_learned/` に記録済み |
 
 ---
@@ -85,6 +86,9 @@ ORM                       : Prisma 5.x
 | results | エージェント間の状態がメモリ上のみで消える | 引き継ぎは必ず `results/{タスクID}-*.json` に書き出す |
 | feature_list | `status=READY` でも実装済みコードが存在する場合がある | タスク開始前に必ず Glob でファイル探索して実装状況を確認してから計画を立てる |
 | .clauderules | 業務ルールのみ記載で技術的制約が抜ける → 既知バグの再発 | バグ発生時は即座に該当 `.clauderules` に技術的本能ルールとして追記する |
+| UIコンポーネント | sticky/fixed + scrollIntoView 未検証でコミット → クリック不能・レイアウト崩壊 | 新規 Client Component は必ず devサーバーで操作確認してから commit |
+| Devキャッシュ | .next キャッシュ破損で vendor-chunks エラー → 画面が真っ赤 | 完了前に `.next` 削除 → `npm run dev` 再起動 → ブラウザ確認 |
+| E2E未定義 | 「手動動作確認済み」が曖昧で受け入れ基準が存在しない → バグを見逃す | 完了前に `plans/*-e2e.md` を作成し、人間が受け入れ条件全項クリアを確認してから COMPLETE |
 
 ---
 
@@ -150,21 +154,29 @@ ORM                       : Prisma 5.x
 ## タスク完了プロトコル（毎回必須・省略禁止）
 
 1. 型チェック・lint — エラー 0件を確認
-2. 手動動作確認
-3. `results/{タスクID}-complete.json` を作成してパイプライン完了を記録  
+2. **Devサーバー実動作確認（省略禁止）**
+   - `.next` キャッシュ削除 → `npm run dev` 再起動 → ブラウザでエラーなしを確認
+   - 新規 UI コンポーネントがある場合: **初期表示・ボタン操作・ページ遷移** を操作確認
+3. **人間向けE2Eテスト計画を作成・提示（省略禁止）**
+   - ファイル: `plans/YYYY-MM-DD-{タスク名}-e2e.md`
+   - 形式: 番号付き操作手順 + **受け入れ条件（Pass/Fail 基準を明示）**
+   - 内容: 対象画面URL・前提条件・操作ステップ・期待結果・NG判定基準
+   - **人間の「承認」確認なしに以降のステップに進むことを禁止**
+4. 人間によるE2E実施 → 承認を受ける
+5. `results/{タスクID}-complete.json` を作成してパイプライン完了を記録  
    （`used_model` フィールドに実際に使用したモデルIDを記録すること）
-4. `memories/lessons_learned/YYYY-MM-DD-{タスク名}.md` を作成
-5. `CLAUDE.md` の失敗パターン早見表に新規パターンを自律追記（あれば）
-6. `scratchpad/` の一時ファイルを削除
-7. `feature_list.json` の当該タスクの status を COMPLETE に更新
-8. `git commit && git push`
-9. 完了した plans を `memories/summaries/` にアーカイブ
-10. セッション中に人間が確認した操作を `memories/confirmation_history.md` に記録
-11. `memories/lessons_learned/` の未蒸留ファイルが 5件以上なら蒸留タスクをスケジュール
+6. `memories/lessons_learned/YYYY-MM-DD-{タスク名}.md` を作成
+7. `CLAUDE.md` の失敗パターン早見表に新規パターンを自律追記（あれば）
+8. `scratchpad/` の一時ファイルを削除
+9. `feature_list.json` の当該タスクの status を COMPLETE に更新
+10. `git commit && git push`
+11. 完了した plans を `memories/summaries/` にアーカイブ
+12. セッション中に人間が確認した操作を `memories/confirmation_history.md` に記録
+13. `memories/lessons_learned/` の未蒸留ファイルが 5件以上なら蒸留タスクをスケジュール
 
 ---
 
 ## メタデータ
-- 最終更新: 2026-05-26
-- 更新理由: BPSP BizDev育成ゲーム開発開始 — アーキテクチャ設定を技術スタックで更新（SETUP-001）
+- 最終更新: 2026-05-28
+- 更新理由: 品質プロセス強化 — Devサーバー実動作確認・人間E2Eテスト計画（受け入れ条件必須）をタスク完了プロトコルに追加。失敗パターン3件追加（UIコンポーネント・Devキャッシュ・E2E未定義）
 - GitHub: https://github.com/PIROSHKI1287/My_Deveropment
