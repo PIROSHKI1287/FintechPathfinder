@@ -1,0 +1,26 @@
+{
+  "task_id": "F018",
+  "title": "ナビゲーション改善（戻るボタン・パンくず・グローバルメニュー）",
+  "completed_at": "2026-05-28",
+  "used_model": "claude-sonnet-4-6",
+  "branch": "feature/f018-navigation",
+  "new_files": [
+    "agents/_shell/ui/GlobalNav.tsx",
+    "app/(game)/layout.tsx"
+  ],
+  "verification": {
+    "type_check": "PASS (0 errors)",
+    "build": "PASS",
+    "manual": "PASS（ユーザー確認済み・不具合なし）"
+  },
+  "routes_covered": [
+    "/home",
+    "/game/[N]/learn",
+    "/game/[N]/quiz",
+    "/game/[N]/result",
+    "/game/game-over",
+    "/dictionary",
+    "/history",
+    "/settings"
+  ]
+}

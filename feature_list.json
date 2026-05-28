@@ -183,7 +183,7 @@
       "title": "ナビゲーション改善（戻るボタン・パンくず・グローバルメニュー）",
       "description": "全画面に戻るボタン・パンくず・グローバルナビを追加。agents/_shell/のレイアウト変更。",
       "priority": "Must",
-      "status": "READY",
+      "status": "COMPLETE",
       "phase": "1.1",
       "agent": "_shell",
       "feature_requirement_ids": []
