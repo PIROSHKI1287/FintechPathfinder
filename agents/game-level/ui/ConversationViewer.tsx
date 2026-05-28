@@ -25,7 +25,8 @@ export default function ConversationViewer({ levelNumber, title, script }: Conve
   const visibleTurns = script.slice(0, current + 1)
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    if (current === 0) return
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [current])
 
   useEffect(() => {
@@ -82,7 +83,7 @@ export default function ConversationViewer({ levelNumber, title, script }: Conve
       </div>
 
       {/* 会話エリア（自然に伸びる） */}
-      <div className="space-y-4 pb-6">
+      <div className="space-y-4 mb-6">
         {visibleTurns.map((turn) => (
           <div
             key={turn.turn}
@@ -107,11 +108,10 @@ export default function ConversationViewer({ levelNumber, title, script }: Conve
             </div>
           </div>
         ))}
-        <div ref={bottomRef} />
       </div>
 
-      {/* ナビゲーション（ページ末尾固定） */}
-      <div className="sticky bottom-0 flex items-center justify-between gap-4 border-t bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      {/* ナビゲーション（通常フロー）*/}
+      <div className="flex items-center justify-between gap-4 border-t pt-4">
         <button
           onClick={() => setCurrent((c) => Math.max(c - 1, 0))}
           disabled={current === 0}
@@ -136,6 +136,9 @@ export default function ConversationViewer({ levelNumber, title, script }: Conve
           </button>
         )}
       </div>
+
+      {/* スクロールアンカー：次へ押下時にナビが見える位置まで追従 */}
+      <div ref={bottomRef} className="pt-2" />
     </div>
   )
 }
