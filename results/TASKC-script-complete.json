@@ -1,0 +1,27 @@
+{
+  "task_id": "TASK-C",
+  "title": "会話形式スクリプト Unit シード投入（BPSP L1-L5）",
+  "completed_at": "2026-05-28",
+  "used_model": "claude-sonnet-4-6",
+  "new_files": [
+    "prisma/seed/script_seed.json",
+    "prisma/seed/seed-bpsp-script.ts"
+  ],
+  "seed_result": {
+    "units": 5,
+    "total_turns": 121,
+    "levels": [
+      { "levelNumber": 1, "unitId": "bpsp-l1-unit-lecture", "turns": 27 },
+      { "levelNumber": 2, "unitId": "bpsp-l2-unit-lecture", "turns": 23 },
+      { "levelNumber": 3, "unitId": "bpsp-l3-unit-lecture", "turns": 23 },
+      { "levelNumber": 4, "unitId": "bpsp-l4-unit-lecture", "turns": 23 },
+      { "levelNumber": 5, "unitId": "bpsp-l5-unit-lecture", "turns": 25 }
+    ]
+  },
+  "verification": {
+    "type_check": "PASS (0 errors)",
+    "seed_execution": "PASS (Railway DB)",
+    "display": "/game/1/learn にて ConversationViewer が表示されるようになる"
+  },
+  "notes": "getLevelScript() が Unit.script (LECTURE) を取得 → ConversationViewer へ渡す。DB投入済み。手動E2E確認をユーザーにお願いする。"
+}
